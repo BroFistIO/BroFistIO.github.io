@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Send BroFistCoin</title>
+<meta name="description" content="BroFistCoin is a fan made meme coin that is powered by the Ethereum blockchain.">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="http://brofistcoin.io/assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="http://brofistcoin.io/assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="http://brofistcoin.io/assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="http://brofistcoin.io/assets/css/ie8.css" /><![endif]-->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3064259-44"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-3064259-44');
+	</script>
+	
+	<link rel="apple-touch-icon" sizes="57x57" href="http://brofistcoin.io/icons/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="http://brofistcoin.io/icons/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="http://brofistcoin.io/icons/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="http://brofistcoin.io/icons/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="http://brofistcoin.io/icons/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="http://brofistcoin.io/icons/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="http://brofistcoin.io/icons/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="http://brofistcoin.io/icons/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="http://brofistcoin.io/icons/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="http://brofistcoin.io/icons/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="http://brofistcoin.io/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="http://brofistcoin.io/icons/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="http://brofistcoin.io/icons/favicon-16x16.png">
+	<link rel="manifest" href="http://brofistcoin.io/icons/manifest.json">
+	<meta name="msapplication-TileColor" content="#5d4c91">
+	<meta name="msapplication-TileImage" content="http://brofistcoin.io/icons/ms-icon-144x144.png">
+	<meta name="theme-color" content="#5d4c91">
+	
+
+<script src="http://brofistcoin.io/inc/web3.min.js"></script>
+</head>
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<nav id="topmenu">
+	<ul>
+		<li><a href="http://brofistcoin.io/send/">Transfer</a></li>
+		<li><a href="https://medium.com/@brofistcoin.io">Medium</a></li>
+		<li><a href="http://brofistcoin.io/about/">About</a></li>
+		<li><a href="http://brofistcoin.io/BroFistCoin_Whitepaper.pdf">Whitepaper</a></li>
+		<li><a href="http://brofistcoin.io/faq/">FAQ</a></li>
+	</ul>
+	</nav>
+
+
+<!-- Header -->
+<header id="header">
+<h1><a id="logolink" href="http://brofistcoin.io">Send BroFistCoin</a></h1>
+<p>Use this page to easily send your PEW coins to other people.</p>
+</header>
+
+<!-- Main -->
+<div id="main" class="lonelyContent">
+
+	<!-- Content -->
+	<section id="content" class="main">
+	
+	<h3>Transfer form</h3>
+	
+	<p>In order for this feature to work you need to be logged in to your <a href="https://metamask.io" target="_blank" rel="nofollow">MetaMask</a>
+	account.
+	</p>
+	
+	<p>
+	<span id="tokens"></span>
+	</p>
+	
+	<div id="Transfer">
+	
+		<div class="row uniform">
+		
+			<div class="6u 12u$(xsmall)"> 
+				<label class="sendLabel">Ethereum address</label>
+				<input id="address" type="text" placeholder="">
+			</div>
+			<div class="6u 12u$(xsmall)">
+				<label class="sendLabel">Amount</label>
+				<input id="amount" type="text" placeholder="">
+			</div>
+		
+			<div class="12u$">
+				<ul class="actions">
+					<li><button id="transfer" class="button special icon fa-paper-plane">Send</button></li>
+				</ul>
+			</div>
+			
+			<div class="12u$">
+				<p id="transactions"></p>
+			</div>
+		
+		</div>
+		
+	</div>
+	
+	</section>
+
+</div>
+
+	<!-- Footer -->
+	<footer id="footer">
+	<section>
+	
+	<h5>If you're PewDiePie, please don't copystrike us.
+	</h5>
+	
+	<a href="http://brofistcoin.io/about/" target="_blank">About BrofistCoin</a><br>
+	<a href="http://brofistcoin.io/BroFistCoin_Whitepaper.pdf" target="_blank">Whitepaper</a><br>
+	<a href="http://brofistcoin.io/faq/" target="_blank">FAQ</a><br>
+	<a href="https://medium.com/@brofistcoin.io" target="_blank">Medium blog</a><br>
+	<a href="http://brofistcoin.io/careers" target="_blank">Open positions</a>
+	
+	</section>
+
+
+	<section>
+	<h4 class="mytitle2">Get in touch</h4>
+	<dl class="alt">
+	<dt>Address</dt>
+	<dd>PewDiePie's closet</dd>
+	<dt>Phone</dt>
+	<dd>1-800-PEWDIEPIE</dd>
+	<dt>Email</dt>
+	<dd><a href="#">info@brofistcoin.io</a></dd>
+	<dt>Telegram</dt>
+	<dd><a href="http://t.me/brofistcoin_en" target="_blank">English</a>, <a href="https://t.me/brofistcoin_zh" target="_blank">Chinese</a></dd>
+	</dl>
+	
+	<ul class="icons">
+	
+	<li><a href="https://bitcointalk.org/index.php?topic=2991802" target="_blank" class="icon fa-btc alt">
+	<span class="label">Bitcointalk</span></a>
+	</li>
+	
+	<li><a href="https://twitter.com/brofistcoinio" target="_blank" class="icon fa-twitter alt">
+	<span class="label">Twitter</span></a>
+	</li>
+	
+	<li><a href="https://www.facebook.com/brofistcoinio/" target="_blank" class="icon fa-facebook alt">
+	<span class="label">Facebook</span></a>
+	</li>
+	
+	<li><a href="https://www.reddit.com/r/BrofistCoin/" target="_blank" class="icon fa-reddit alt">
+	<span class="label">Reddit</span></a>
+	</li>
+	
+	<li><a href="https://jq.qq.com/?_wv=1027&k=5gTVnaf" target="_blank" class="icon fa-qq alt">
+	<span class="label">QQ</span></a>
+	</li>
+	
+	<li><a href="https://github.com/BroFistIO" target="_blank" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
+	</ul>
+	
+	</section>
+
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="http://brofistcoin.io/assets/js/jquery.min.js"></script>
+<script src="http://brofistcoin.io/assets/js/jquery.scrollex.min.js"></script>
+<script src="http://brofistcoin.io/assets/js/jquery.scrolly.min.js"></script>
+<script src="http://brofistcoin.io/assets/js/skel.min.js"></script>
+<script src="http://brofistcoin.io/assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="http://brofistcoin.io/assets/js/main.js"></script>
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c4fea74b40c8c"></script>
+
+
+<script>
+
+// The following code was taken from wednesdaycoin.io thank you!
+
+if (typeof web3 !== 'undefined') {
+web3 = new Web3(web3.currentProvider);
+} else {
+	// set the provider you want from Web3.providers
+	//web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+	alert('This feature currently only works with metamask so please download the metamask chrome plugin. We will redirect you back to the home page, thank you.');
+	window.location.replace("http://brofistcoin.io");
+}
+
+web3.eth.defaultAccount = web3.eth.getAccounts[0];
+
+//Replace contract address here with the contract address of token
+var contractAddress = '0xa701122c1b67220a8B6883D03C8Ad67896B12466';
+//Replace cABI with ABI of token
+//Note to self: no need for the whole thing just the parts that you are going to use!
+var coinContract = web3.eth.contract([
+{
+	"constant":true,
+	"inputs":[{"name":"_owner","type":"address"}],
+	"name":"balanceOf",
+	"outputs":[{"name":"","type":"uint256"}],
+	"payable":false,
+	"stateMutability":"view",
+	"type":"function"
+},
+
+{
+	"constant":false,
+	"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],
+	"name":"transfer",
+	"outputs":[{"name":"success","type":"bool"}],
+	"payable":false,
+	"stateMutability":"nonpayable",
+	"type":"function"
+}
+
+]);
+
+var decimalHolder = 100000000;		
+
+var coin = coinContract.at(contractAddress);
+
+var balance = 0;
+
+// Used getAccounts because it's async (to fix balance occasionally not showing on page load)
+var account = web3.eth.getAccounts[0];
+var accountInterval = setInterval(function() {
+	if (web3.eth.accounts[0] !== account) {
+		account = web3.eth.accounts[0];
+		coin.balanceOf(account, function(error, result){
+			if(!error)
+			{
+				balance = Math.ceil(result/decimalHolder);
+				$("#tokens").html('My Balance: ' + balance);
+			}
+		});
+	}
+}, 100);
+
+$("#transfer").click(function() {
+	//user-friendly checks
+	if (!web3.isAddress($('#address').val())) {
+		alert('Address is invalid!');
+		return;	
+	}
+
+	if ($("#amount").val() <= 0) {
+		alert('Amount to transfer cannot be zero or less than zero!');
+		return;	
+	}
+
+	if ($('#amount').val() <= 0 || $('#amount').val() > balance) {
+		alert('The amount you are trying to send is more than your balance');
+		return;	
+	}
+
+	//alert(accounts[i]);
+	coin.transfer($("#address").val(), $("#amount").val() * decimalHolder, function(error, result) {
+		if (!error) {
+			$("#transactions").prepend("Transfer to " + $("#address").val() + " is successful. TxHash: <a target=\"_blank\"  href=\"https://etherscan.io/tx/" + result + "\">"+result+"</a> <br>");
+		} else {
+			alert("Transfer could not completed. Please try again later");
+		}
+	});
+});
+
+$("#address").on("input",function () {	
+	if (web3.isAddress($('#address').val())) {
+		$('#address').css('border-color','green');
+	}
+	else {
+		$('#address').css('border-color','red');
+	}
+})
+
+$("#amount").on("input",function () {	
+	if ($('#amount').val() > 0 && $('#amount').val() <= balance) {
+		$('#amount').css('border-color','green');
+	}
+	else {
+		$('#amount').css('border-color','red');
+	}
+})
+
+</script>
+
+</body>
+</html>
