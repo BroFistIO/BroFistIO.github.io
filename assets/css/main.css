@@ -3992,3 +3992,24 @@ text-decoration: line-through
 .additionalSqueeze {
 	max-width: 600px;
 }
+
+/* Bullet points menu for sub-pages */
+#bulletPoints ul {
+	text-align: center;
+	margin: 0; padding: 2em;
+	
+}
+
+#bulletPoints ul li {
+	display: inline-block;
+}
+
+#bulletPoints ul li a {
+	border-top: solid 1px #f7f7f7;
+	border-bottom: solid 1px #f7f7f7;
+	padding: 0.5em;
+}
+
+#bulletPoints ul li a:hover {
+	background: #f7f7f7;
+}
