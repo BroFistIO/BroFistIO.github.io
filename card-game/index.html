@@ -146,7 +146,7 @@
 	
 	<h2>Same</h2>
 	<p>When a card is placed <strong>touching two or more</strong> other cards (one or both of them have to be the opposite color), 
-	and the touching sides of each card is the same (8 touching 8 for example), then the other two cards are flipped. 
+	and the touching sides of each card is the same (8 touching 8 for example), then the other two cards are captured. 
 	Combo rule applies.<br>
 	<img class="image fit" src="Same-rule-explained.jpg" alt="Same Rule Explained">
 	</p>
@@ -182,11 +182,6 @@
 	<h2>Current state of development</h2>
 	
 	<p>
-	
-	<strong>!!!Announcement!!!</strong> At the moment this is a solo project. So if you're a Solidity developer and think this project 
-	has potential, it would mean a lot to me if you are willing to join me and work together in making this thing a reality 
-	as fast as possible.<br><br>
-	
 	Now that the playable demo is finally out it's time to proceed with phase 2!<br><br>
 	
 	I've been looking more and more into the ERC721 standard, reading every possible guide and tutorial I can find. I know 
@@ -197,7 +192,7 @@
 	mean the people who own more BrofistCoin would get an <strong>unfair advantage</strong>.<br><br>
 	
 	Instead I've been thinking about building the contract in such a way where each new player (who owns 0 cards) is given 
-	a mystery box containing 7 randomly picked level 1 cards. In case you didn't know, the trading cards have "levels" ranging 
+	a mystery box containing 5 randomly picked level 1 cards. In case you didn't know, the trading cards have "levels" ranging 
 	from 1 to 10 which reflect their overall rarity (note to self: cards will probably need a multiplier of sorts which 
 	tells the card minting function the overall chance for that particular card to get minted).<br><br>
 	
@@ -217,7 +212,11 @@
 	
 	Naturally there will be a decentralized marketplace for all of these trading cards so if you happen to own multiple, 
 	you can sell them to the highest bidder for BrofistCoin ;) I am currently looking at integrating OpeanSea because I heard they 
-	allow your own token to be used as currency. 
+	allow your own token to be used as currency. <br><br>
+	
+	And finally I got this really awesome idea of "gilded cards". Whenever the player wins the round and the contract chooses 
+	a random card from the opponent's deck to reward the player, there is an insanely small chance for that card to become 
+	"gilded" meaning it will have some epic style visual aspects and boosted stats.
 	</p>
 	
 	</section>
