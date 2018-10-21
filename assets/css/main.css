@@ -4005,8 +4005,7 @@ text-decoration: line-through
 }
 
 #bulletPoints ul li a {
-	border-top: solid 1px #f7f7f7;
-	border-bottom: solid 1px #f7f7f7;
+	border: 0;
 	padding: 0.5em;
 }
 
