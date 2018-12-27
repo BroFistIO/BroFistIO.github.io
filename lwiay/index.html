@@ -1,0 +1,172 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>LWIAY Winners</title>
+<meta name="description" content="BrofistCoin is a fan made meme coin that is powered by the Ethereum blockchain.">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!--[if lte IE 8]><script src="../assets/js/ie/html5shiv.js"></script><![endif]-->
+	<link rel="stylesheet" href="../assets/css/main.css" />
+	<!--[if lte IE 9]><link rel="stylesheet" href="../assets/css/ie9.css" /><![endif]-->
+	<!--[if lte IE 8]><link rel="stylesheet" href="../assets/css/ie8.css" /><![endif]-->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3064259-44"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-3064259-44');
+	</script>
+	
+</head>
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+	<nav id="topmenu">
+	<ul>
+		<li><a href="../card-game/">Card Game</a></li>
+		<li><a href="https://medium.com/@BrofistCoin.io">Blog</a></li>
+		<li><a href="../about/">About</a></li>
+		<li><a href="../BrofistCoin_Whitepaper.pdf">Whitepaper</a></li>
+		<li><a href="../faq/">FAQ</a></li>
+	</ul>
+	</nav>
+
+
+<!-- Header -->
+<header id="header">
+<h1><a id="logolink" href="../">LWIAY Winners</a></h1>
+<p>List of LWIAY episodes and winners since BrofistCoin rewarding became a thing</p>
+</header>
+
+<!-- Main -->
+<div id="main" class="lonelyContent">
+
+	<!-- Content -->
+	<section id="content" class="main">
+
+	<div id="episodes"></div>
+	
+	</section>
+
+</div>
+
+	<!-- Footer -->
+	<footer id="footer">
+	<section>
+	
+	<h5>If you're PewDiePie, please don't copystrike us.
+	</h5>
+	
+	<a href="../about/" target="_blank">About BrofistCoin</a><br>
+	<a href="../BrofistCoin_Whitepaper.pdf" target="_blank">Whitepaper</a><br>
+	<a href="../faq/" target="_blank">FAQ</a><br>
+	<a href="https://medium.com/@BrofistCoin.io" target="_blank">Medium blog</a><br>
+	<a href="../careers" target="_blank">Open positions</a>
+	
+	</section>
+
+
+	<section>
+	<h4 class="mytitle2">Get in touch</h4>
+	<dl class="alt">
+	<dt>Address</dt>
+	<dd>PewDiePie's closet</dd>
+	<dt>Phone</dt>
+	<dd>1-800-PEWDIEPIE</dd>
+	<dt>Email</dt>
+	<dd><a href="#">info@BrofistCoin.io</a></dd>
+	<dt>Telegram</dt>
+	<dd><a href="http://t.me/BrofistCoin_en" target="_blank">English</a>, <a href="https://t.me/BrofistCoin_zh" target="_blank">Chinese</a></dd>
+	</dl>
+	
+	<ul class="icons">
+	
+	<li><a href="https://bitcointalk.org/index.php?topic=2991802" target="_blank" class="icon fa-btc alt">
+	<span class="label">Bitcointalk</span></a>
+	</li>
+	
+	<li><a href="https://twitter.com/BrofistCoinio" target="_blank" class="icon fa-twitter alt">
+	<span class="label">Twitter</span></a>
+	</li>
+	
+	<li><a href="https://www.facebook.com/BrofistCoinio/" target="_blank" class="icon fa-facebook alt">
+	<span class="label">Facebook</span></a>
+	</li>
+	
+	<li><a href="https://www.reddit.com/r/BrofistCoin/" target="_blank" class="icon fa-reddit alt">
+	<span class="label">Reddit</span></a>
+	</li>
+	
+	<li><a href="https://jq.qq.com/?_wv=1027&k=5gTVnaf" target="_blank" class="icon fa-qq alt">
+	<span class="label">QQ</span></a>
+	</li>
+	
+	<li><a href="https://github.com/BroFistIO" target="_blank" class="icon fa-github alt"><span class="label">GitHub</span></a></li>
+	</ul>
+	
+	</section>
+
+	</footer>
+
+</div>
+
+<!-- Scripts -->
+<script>
+var web3 = new Web3(new Web3.providers.HttpProvider('https://ropsten.infura.io/v3/5d71421e0f194ea2a1295ed77704a564'));
+
+var contractAddress = '0x55546ec1622528a11b7324abf3ab755f52bfc400';
+var abi = web3.eth.contract([{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getEpisodeData","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_date","type":"uint32"}],"name":"editEpisode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getMemeData","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"memes","outputs":[{"name":"author","type":"string"},{"name":"title","type":"string"},{"name":"url","type":"string"},{"name":"thumbnail","type":"string"},{"name":"reward","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_amount","type":"uint256"},{"name":"_hash","type":"string"}],"name":"addPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"episodeCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"memeCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"episodes","outputs":[{"name":"title","type":"string"},{"name":"url","type":"string"},{"name":"date","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_author","type":"string"},{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_thumbnail","type":"string"},{"name":"_reward","type":"uint256"}],"name":"editMemes","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getMemesForEpisode","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_author","type":"string"},{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_thumbnail","type":"string"},{"name":"_reward","type":"uint256"},{"name":"_episode","type":"uint256"}],"name":"addMeme","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalPaid","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_date","type":"uint32"}],"name":"addEpisode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"NewEpisode","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"NewMeme","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"EpisodeEdited","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"MemeEdited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"}]);
+var instance = abi.at(contractAddress);
+
+instance.episodeCount.call(function(err, result) {
+    if(!err) {
+        var episodeCount = result.toNumber();
+        
+        var i;
+        
+        for (i = 0; i < episodeCount; i++) {
+            var title = instance.getEpisodeData(i)[0];
+            var url = instance.getEpisodeData(i)[1];
+            var time = instance.getEpisodeData(i)[2].toString();
+            
+            // date.format.js
+            var timestampInMilliSeconds = time*1000;
+            var date = new Date(timestampInMilliSeconds);
+            var formattedDate = date.format('d-m-Y');
+            
+            $( "#episodes" ).prepend( "<h3><a href="+url+" target=\"_blank\">"+title+"</a> (Published on "+formattedDate+")</h3><table id=\""+time+"\" class=\"alt\"><thead><tr><th>Author</th><th>Meme</th><th>Reward</th></tr></thead></table>" );
+
+            var memes = instance.getMemesForEpisode(i);
+            
+            var x;
+            // Assumes that there are exactly 3 memes in each episode 
+            for (x = 0; x < 3; x++) {
+                var memeData = instance.getMemeData(memes[x]);
+                
+                var memeAuthor = memeData[0];
+                var memeTitle = memeData[1];
+                var memeUrl = memeData[2];
+                var memeThumbnail = memeData[3];
+                var memeReward = memeData[4].toString();
+
+                $( "#"+time+"" ).append( "<tbody><tr><td>"+memeAuthor+"</td><td>"+memeTitle+" [<a href=\""+memeUrl+"\" target=\"_blank\">Reddit</a>][<a href=\""+memeThumbnail+"\" target=\"_blank\">IPFS</a>]</td><td>"+memeReward/100000000+"</td></tr></tbody><tfoot></tfoot></table>" );
+            }
+            
+
+        }
+    }
+});
+
+
+
+</script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/date.format.js"></script> 
+<script src="../assets/js/web3.min.js"></script>
+</body>
+</html>
