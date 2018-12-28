@@ -138,8 +138,8 @@ instance.episodeCount.call(function(err, result) {
     if(!err) {
         var episodeCount = result.toNumber();
         var i;
-        $( "#load" ).html("<h2>Loading...</h2>");
         for (i = 0; i < episodeCount; i++) {
+            $( "#load" ).html("<h2>Loading...</h2>");
             var title = instance.getEpisodeData(i)[0];
             var url = instance.getEpisodeData(i)[1];
             var time = instance.getEpisodeData(i)[2].toString();
