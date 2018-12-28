@@ -55,7 +55,6 @@ gtag('config', 'UA-3064259-44');
 </header>
 <div id="main" class="lonelyContent">
 <section id="content" class="main">
-<div id="load"></div>
 <div id="episodes"></div>
 </section>
 </div>
@@ -139,7 +138,6 @@ instance.episodeCount.call(function(err, result) {
         var episodeCount = result.toNumber();
         var i;
         for (i = 0; i < episodeCount; i++) {
-            document.getElementById("load").innerHTML = "<h2>Loading...</h2>";
             var title = instance.getEpisodeData(i)[0];
             var url = instance.getEpisodeData(i)[1];
             var time = instance.getEpisodeData(i)[2].toString();
@@ -161,7 +159,6 @@ instance.episodeCount.call(function(err, result) {
                 $( "#"+time+"" ).append( "<tbody><tr><td>"+memeAuthor+"</td><td>"+memeTitle+" [<a href=\""+memeUrl+"\" target=\"_blank\">Reddit</a>][<a href=\""+memeThumbnail+"\" target=\"_blank\">IPFS</a>]</td><td>"+memeReward/100000000+"</td></tr></tbody><tfoot></tfoot></table>" );
             }
         }
-        document.getElementById("load").innerHTML = "<h2>Done :)</h2>";
     }
 });
 </script>
