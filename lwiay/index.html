@@ -52,7 +52,7 @@ gtag('config', 'UA-3064259-44');
 </header>
 <div id="main" class="lonelyContent">
 <section id="content" class="main">
-<div id="load"><h2>Loading...</h2></div>
+<div id="load" style="display:none"><h2>Loading...</h2></div>
 <div id="episodes"></div>
 </section>
 </div>
@@ -109,6 +109,9 @@ web3 = new Web3(web3.currentProvider);
 However this works, but only with MetaMask installed. 
 What's the purpose of providing a custom provider when it won't work without MetaMask?
 What does MetaMask have to do with any of this at this point?
+This doesn't work with for example the new Opera web3 ready browser :( but in 
+brofistcoin.io/send it works. I am assuming it's because in the /send page I have an "account" 
+parameter passed to the function call? 
 */
 if (typeof web3 == 'undefined') {
 // Display a message why MetaMask is needed...
