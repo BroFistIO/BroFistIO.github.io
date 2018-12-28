@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
 <title>LWIAY Winners</title>
@@ -138,7 +139,7 @@ instance.episodeCount.call(function(err, result) {
         var episodeCount = result.toNumber();
         var i;
         for (i = 0; i < episodeCount; i++) {
-            $( "#load" ).html("<h2>Loading...</h2>");
+            $( "#load" ).empty().append("<h2>Loading...</h2>");
             var title = instance.getEpisodeData(i)[0];
             var url = instance.getEpisodeData(i)[1];
             var time = instance.getEpisodeData(i)[2].toString();
@@ -160,7 +161,7 @@ instance.episodeCount.call(function(err, result) {
                 $( "#"+time+"" ).append( "<tbody><tr><td>"+memeAuthor+"</td><td>"+memeTitle+" [<a href=\""+memeUrl+"\" target=\"_blank\">Reddit</a>][<a href=\""+memeThumbnail+"\" target=\"_blank\">IPFS</a>]</td><td>"+memeReward/100000000+"</td></tr></tbody><tfoot></tfoot></table>" );
             }
         }
-        $( "#load" ).html("<h2>Loaded!</h2>");
+        $( "#load" ).empty();
     }
 });
 </script>
