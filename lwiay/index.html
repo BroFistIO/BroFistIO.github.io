@@ -33,9 +33,10 @@ gtag('config', 'UA-3064259-44');
 <meta name="msapplication-TileColor" content="#5d4c91">
 <meta name="msapplication-TileImage" content="../icons/ms-icon-144x144.png">
 <meta name="theme-color" content="#5d4c91">
-<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/jquery.min.js">$( "#loading" ).hide();</script>
 <script src="../inc/date.format.js"></script> 
 <script src="../inc/web3.min.js"></script>
+<style>#content{position:relative}#loading{position:absolute;top:0;left:0}</style>
 </head>
 <body>
 <div id="wrapper">
@@ -55,6 +56,7 @@ gtag('config', 'UA-3064259-44');
 </header>
 <div id="main" class="lonelyContent">
 <section id="content" class="main">
+<div id="loading"><img src="../icons/spinner.gif"/></div>
 <div id="episodes"></div>
 </section>
 </div>
@@ -128,6 +130,7 @@ instance.episodeCount.call(function(err, result) {
         var episodeCount = result.toNumber();
         var i;
         for (i = 0; i < episodeCount; i++) {
+            $( "#loading" ).show();
             var title = instance.getEpisodeData(i)[0];
             var url = instance.getEpisodeData(i)[1];
             var time = instance.getEpisodeData(i)[2].toString();
@@ -149,6 +152,9 @@ instance.episodeCount.call(function(err, result) {
                 $( "#"+time+"" ).append( "<tbody><tr><td>"+memeAuthor+"</td><td>"+memeTitle+" [<a href=\""+memeUrl+"\" target=\"_blank\">Reddit</a>][<a href=\""+memeThumbnail+"\" target=\"_blank\">IPFS</a>]</td><td>"+memeReward/100000000+"</td></tr></tbody><tfoot></tfoot></table>" );
             }
         }
+        $( "#loading" ).hide();
+    } else {
+        console.error(err);
     }
 });
 </script>
