@@ -95,9 +95,7 @@ gtag('config', 'UA-3064259-44');
 </footer>
 </div>
 <script>
-/* 
-DEVELOPERS I need your help!!!
-
+/*
 This does NOT work for some reason:
 
 if (typeof web3 !== 'undefined') {
@@ -107,23 +105,22 @@ web3 = new Web3(web3.currentProvider);
 }
 */
 
-/*
-However this works, but only with MetaMask installed. 
-What's the purpose of providing a custom provider when it won't work without MetaMask?
-What does MetaMask have to do with any of this at this point?
-This doesn't work with for example the new Opera web3 ready browser :( but in 
-brofistcoin.io/send it works. I am assuming it's because in the /send page I have an "account" 
-parameter passed to the function call? 
-*/
+// So I force the Infura provider..
 web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/5d71421e0f194ea2a1295ed77704a564"));
 var contractAddress = '0x55546ec1622528a11b7324abf3ab755f52bfc400';
 var abi = web3.eth.contract([{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getEpisodeData","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_date","type":"uint32"}],"name":"editEpisode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getMemeData","outputs":[{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"string"},{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"memes","outputs":[{"name":"author","type":"string"},{"name":"title","type":"string"},{"name":"url","type":"string"},{"name":"thumbnail","type":"string"},{"name":"reward","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_amount","type":"uint256"},{"name":"_hash","type":"string"}],"name":"addPayout","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"episodeCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"renounceOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"memeCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"episodes","outputs":[{"name":"title","type":"string"},{"name":"url","type":"string"},{"name":"date","type":"uint32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isOwner","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_author","type":"string"},{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_thumbnail","type":"string"},{"name":"_reward","type":"uint256"}],"name":"editMemes","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getMemesForEpisode","outputs":[{"name":"","type":"uint256[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_author","type":"string"},{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_thumbnail","type":"string"},{"name":"_reward","type":"uint256"},{"name":"_episode","type":"uint256"}],"name":"addMeme","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"totalPaid","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_title","type":"string"},{"name":"_url","type":"string"},{"name":"_date","type":"uint32"}],"name":"addEpisode","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"NewEpisode","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"NewMeme","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"EpisodeEdited","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"id","type":"uint256"}],"name":"MemeEdited","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"OwnershipTransferred","type":"event"}]);
 var instance = abi.at(contractAddress);
 
-/* This call below could be problematic or wrong because 
-when I use the first example that uses defaultProvider, I get an error saying that:
-The MetaMask Web3 object does not support synchronous methods like eth_call without a callback parameter.
-But then how do I call episodeCount which is a uint and expects no input parameters by default?
+/* This call below could be problematic or wrong?
+When using the currentProvider (MetaMask) I get the following error:
+
+The MetaMask Web3 object does not support synchronous methods like eth_call without a callback parameter
+
+But then how do I call episodeCount which is literally nothing but a public uint?
+
+uint public episodeCount;
+
+Afaik the call has no parameters?
 */
 
 instance.episodeCount.call(function(err, result) {
@@ -152,7 +149,7 @@ instance.episodeCount.call(function(err, result) {
                 $( "#"+time+"" ).append( "<tbody><tr><td>"+memeAuthor+"</td><td>"+memeTitle+" [<a href=\""+memeUrl+"\" target=\"_blank\">Reddit</a>][<a href=\""+memeThumbnail+"\" target=\"_blank\">IPFS</a>]</td><td>"+memeReward/100000000+"</td></tr></tbody><tfoot></tfoot></table>" );
             }
         }
-    }
+    } else {console.error(err);}
 });
 </script>
 </body>
