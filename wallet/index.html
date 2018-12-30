@@ -38,12 +38,11 @@ gtag('config', 'UA-3064259-44');
 <script src="ethereumjs-tx-1.3.3.min.js"></script>
 <script src="blockies.js"></script>
 <style>
-#newAccountWrapper{
-padding: 0.5em;
+#newAccountWrapper{padding:0.5em;
 -webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
 -moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
 box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
-width: 100%; display: none; z-index: 999; position: relative;}
+width: 100%; display: none; z-index: 999; position: relative;margin-bottom:1em}
 #newAccountWrapper span, #newAccountWrapper code {width:100%; display:block; overflow: auto; margin: 0;}
 #newAccountWrapper p{padding: 0.3em;}
 #newAccountIcon{width: 32px; height: 32px}
@@ -64,15 +63,16 @@ width: 100%; display: none; z-index: 999; position: relative;}
 </nav>
 <header id="header">
 <h1><a id="logolink" href="../">Wallet Generator</a></h1>
-<p>Get your very own Ethereum address and private key to receive BrofistCoin rewards to!</p>
+<p>Get your very own Ethereum address to receive BrofistCoin rewards to!</p>
 </header>
 <div id="main" class="lonelyContent">
 <section id="content" class="main">
 <h3>What's this?</h3>
-<p>This page generates an Ethereum address/private key pair that you can use to send and receive BrofistCoin
-and any other ERC20 cryptocurrencies, including Ether. The Address is used to receive BrofistCoin (or other tokens) and can 
-therefore be publicly shared with anyone. However the Private key is used to send transactions from your Address so 
-whoever has it controls the Address. You should save it somewhere safe!
+<p>This page generates an Ethereum Address/Private key pair that you can use to send and receive BrofistCoin
+and any other ERC20 cryptocurrencies along with Ether.<br>
+The Address is used to receive BrofistCoin (or other tokens) and can therefore be publicly shared with anyone. 
+However the Private key is used to send transactions from your Address so whoever has it controls the Address 
+itself. You should save the Private key somewhere safe!
 </p>
 <div id="newAccountWrapper">
 <div id="closeButton"><span class="icon fa-close"></li></div>
@@ -92,10 +92,9 @@ Feel free to generate a new Address/Private key pair if you don't like the curre
 It will be used throughout the network to identify your Address so you might as well get one that you like.
 </p>
 </div>
-
 <div class="12u$">
 <ul class="actions">
-<li><button id="createWallet" class="button special icon fa-cogs">Generate</button></li>
+<li><button id="createWallet" class="button special icon fa-cogs">Generate New</button></li>
 </ul>
 </div>
 </section>
