@@ -69,10 +69,9 @@ width: 100%; display: none; z-index: 999; position: relative;margin-bottom:1em}
 <section id="content" class="main">
 <h3>What's this?</h3>
 <p>This page generates an Ethereum Address/Private key pair that you can use to send and receive BrofistCoin
-and any other ERC20 cryptocurrencies along with Ether.<br>
+and any other ERC20 cryptocurrencies along with Ether.<br><br>
 The Address is used to receive BrofistCoin (or other tokens) and can therefore be publicly shared with anyone. 
-However the Private key is used to send transactions from your Address so whoever has it controls the Address 
-itself. You should save the Private key somewhere safe!
+The Private key is used to send transactions from your Address so you must never share it with anyone!
 </p>
 <div id="newAccountWrapper">
 <div id="closeButton"><span class="icon fa-close"></li></div>
@@ -95,6 +94,12 @@ It will be used throughout the network to identify your Address so you might as 
 <ul class="actions">
 <li><button id="createWallet" class="button special icon fa-cogs">Generate New</button></li>
 </ul>
+<h3>Disclaimer</h3>
+<p>The code has not been audited and I'm using a beta version of the Web3 library so for all I know it could be buggy and filled with 
+vulnerabilities. I made this generator to learn more about the Ethereum project and how wallets (and blockies!) are created. I strongly recommend 
+using MyEtherWallet or MetaMask to generate a wallet securely if you intend to hold any significant amount of funds on there. By using 
+this wallet generator you agree that you are the only one responsible should anything happen to the funds kept in Addresses generated here.
+</p>
 </div>
 </section>
 </div>
