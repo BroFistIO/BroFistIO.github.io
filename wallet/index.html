@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<title>Wallet Generator</title>
+<meta name="description" content="BrofistCoin is a fan made meme coin that is powered by the Ethereum blockchain.">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!--[if lte IE 8]><script src="../assets/js/ie/html5shiv.js"></script><![endif]-->
+<link rel="stylesheet" href="../assets/css/main.css"/>
+<!--[if lte IE 9]><link rel="stylesheet" href="../assets/css/ie9.css" /><![endif]-->
+<!--[if lte IE 8]><link rel="stylesheet" href="../assets/css/ie8.css" /><![endif]-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3064259-44"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-3064259-44');
+</script>
+<link rel="apple-touch-icon" sizes="57x57" href="../icons/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="../icons/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../icons/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="../icons/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../icons/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="../icons/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="../icons/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="../icons/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="../icons/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="../icons/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+<link rel="manifest" href="../icons/manifest.json">
+<meta name="msapplication-TileColor" content="#5d4c91">
+<meta name="msapplication-TileImage" content="../icons/ms-icon-144x144.png">
+<meta name="theme-color" content="#5d4c91">
+<script src="../assets/js/jquery.min.js"></script>
+<script src="web3-1.0.0-beta.37.js"></script>
+<script src="ethereumjs-tx-1.3.3.min.js"></script>
+<script src="blockies.js"></script>
+<style>
+#newAccountWrapper{
+padding: 0.5em;
+-webkit-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+-moz-box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+box-shadow: 0px 0px 5px 1px rgba(0,0,0,0.3);
+width: 100%; display: none; z-index: 999; position: relative;}
+#newAccountWrapper span, #newAccountWrapper code {width:100%; display:block; overflow: auto; margin: 0;}
+#newAccountWrapper p{padding: 0.3em;}
+#newAccountIcon{width: 32px; height: 32px}
+#closeButton{width: 32px; height: 32px; position: absolute; top: 0.5em; right: 0.5em; text-align: center;}
+#closeButton:hover{background:#935d8c; color: #ffffff;}
+</style>
+</head>
+<body>
+<div id="wrapper">
+<nav id="topmenu">
+<ul>
+<li><a href="../card-game/">Card Game</a></li>
+<li><a href="https://medium.com/@BrofistCoin.io">Blog</a></li>
+<li><a href="../about/">About</a></li>
+<li><a href="../BrofistCoin_Whitepaper.pdf">Whitepaper</a></li>
+<li><a href="../faq/">FAQ</a></li>
+</ul>
+</nav>
+<header id="header">
+<h1><a id="logolink" href="../">Wallet Generator</a></h1>
+<p>Get your very own Ethereum address and private key to receive BrofistCoin rewards to!</p>
+</header>
+<div id="main" class="lonelyContent">
+<section id="content" class="main">
+<h3>What's this?</h3>
+<p>This page generates an Ethereum address/private key pair that you can use to send and receive BrofistCoin
+and any other ERC20 cryptocurrencies, including Ether. The Address is used to receive BrofistCoin (or other tokens) and can 
+therefore be publicly shared with anyone. However the Private key is used to send transactions from your Address so 
+whoever has it controls the Address. You should save it somewhere safe!
+</p>
+<div id="newAccountWrapper">
+<div id="closeButton"><span class="icon fa-close"></li></div>
+<div id="newAccountIcon"></div>
+<span>Address</span>
+<code id="newAddress"></code>
+<span>Private key</span>
+<code id="newPrivateKey"></code><br>
+<h3>Important</h3>
+<p>The above public Address and Private key were just generated inside your browser. Now is the only time 
+you will ever see this information so make sure you save the Address and Private key somewhere safe.
+Your Private key is used to send transactions from your Address. If you lose your Private key, you will lose 
+access to your Address permanently. We cannot help you recover your Private key because it 
+is not stored anywhere and is not visible to us. Do NOT lose it. Seriously.
+<br><br>
+Feel free to generate a new Address/Private key pair if you don't like the current blockie icon though.
+It will be used throughout the network to identify your Address so you might as well get one that you like.
+</p>
+</div>
+
+<div class="12u$">
+<ul class="actions">
+<li><button id="createWallet" class="button special icon fa-cogs">Generate</button></li>
+</ul>
+</div>
+</section>
+</div>
+<footer id="footer">
+<section>
+<h5>If you're PewDiePie, please don't copystrike us.</h5>
+<a href="../about/" target="_blank">About BrofistCoin</a><br>
+<a href="../BrofistCoin_Whitepaper.pdf" target="_blank">Whitepaper</a><br>
+<a href="../faq/" target="_blank">FAQ</a><br>
+<a href="https://medium.com/@BrofistCoin.io" target="_blank">Medium blog</a><br>
+<a href="../careers" target="_blank">Open positions</a>
+</section>
+<section>
+<h4 class="mytitle2">Get in touch</h4>
+<dl class="alt">
+<dt>Address</dt>
+<dd>PewDiePie's closet</dd>
+<dt>Phone</dt>
+<dd>1-800-PEWDIEPIE</dd>
+<dt>Email</dt>
+<dd><a href="#">info@BrofistCoin.io</a></dd>
+<dt>Telegram</dt>
+<dd><a href="http://t.me/BrofistCoin_en" target="_blank">English</a>, <a href="https://t.me/BrofistCoin_zh" target="_blank">Chinese</a></dd>
+</dl>
+<ul class="icons">
+<li><a href="https://bitcointalk.org/index.php?topic=2991802" target="_blank" class="icon fa-btc alt">
+<span class="label">Bitcointalk</span></a></li>
+<li><a href="https://twitter.com/BrofistCoinio" target="_blank" class="icon fa-twitter alt">
+<span class="label">Twitter</span></a></li>
+<li><a href="https://www.facebook.com/BrofistCoinio/" target="_blank" class="icon fa-facebook alt">
+<span class="label">Facebook</span></a></li>
+<li><a href="https://www.reddit.com/r/BrofistCoin/" target="_blank" class="icon fa-reddit alt">
+<span class="label">Reddit</span></a></li>
+<li><a href="https://jq.qq.com/?_wv=1027&k=5gTVnaf" target="_blank" class="icon fa-qq alt">
+<span class="label">QQ</span></a></li>
+<li><a href="https://github.com/BroFistIO" target="_blank" class="icon fa-github alt"><span class="label">GitHub</span></a></li></ul>
+</section>
+</footer>
+</div>
+<script>
+web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/5d71421e0f194ea2a1295ed77704a564"));
+
+$("#createWallet").click(function() {
+    var newAccount = web3.eth.accounts.create();
+    $("#newAccountWrapper").show();
+    $("#newAddress").text(newAccount.address);
+    $("#newPrivateKey").text(newAccount.privateKey);
+    var blockie = blockies.create({seed:newAccount.address.toLowerCase(),size:8,scale:4}).toDataURL();
+    $("#newAccountIcon").css('background-image', 'url(' + blockie + ')');
+});
+
+$("#closeButton").click(function() {
+    $(this).parent().hide();
+    // Overwrite these with nothing so it's actually gone for good
+    $("#newAddress").text("");
+    $("#newPrivateKey").text("");
+});
+</script>
+</body>
+</html>
