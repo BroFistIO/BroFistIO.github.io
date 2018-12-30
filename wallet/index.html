@@ -84,9 +84,8 @@ itself. You should save the Private key somewhere safe!
 <h3>Important</h3>
 <p>The above public Address and Private key were just generated inside your browser. Now is the only time 
 you will ever see this information so make sure you save the Address and Private key somewhere safe.
-Your Private key is used to send transactions from your Address. If you lose your Private key, you will lose 
-access to your Address permanently. We cannot help you recover your Private key because it 
-is not stored anywhere and is not visible to us. Do NOT lose it. Seriously.
+If you lose your Private key, you will lose access to your Address permanently. We cannot help you recover 
+your Private key because it is not stored anywhere and is not visible to us. Do NOT lose it. Seriously.
 <br><br>
 Feel free to generate a new Address/Private key pair if you don't like the current blockie icon though.
 It will be used throughout the network to identify your Address so you might as well get one that you like.
@@ -136,7 +135,7 @@ It will be used throughout the network to identify your Address so you might as 
 </footer>
 </div>
 <script>
-web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/v3/5d71421e0f194ea2a1295ed77704a564"));
+web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/v3/5d71421e0f194ea2a1295ed77704a564"));
 
 $("#createWallet").click(function() {
     var newAccount = web3.eth.accounts.create();
