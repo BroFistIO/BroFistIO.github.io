@@ -494,6 +494,9 @@ var accountInterval = setInterval(function() {
                                         flip();
                                         var template = result[0].toString();
                                         var memeName = result[1].toString();
+					    if(memeName.length <= 18) {
+						$("#cardTitle").css("height", "10%");
+					    }
                                         var memeDesc = result[2].toString();
                                         imageSource = "320x300/"+template+".png";
                                         $("#cardTitle").text(memeName);
