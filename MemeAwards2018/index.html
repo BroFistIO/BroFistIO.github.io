@@ -528,6 +528,10 @@ var accountInterval = setInterval(function() {
 	    } else {
 	        // Youtube subscription not confirmed 
 	        $("#step2").html('<button id="confirmYoutubeSubscription" class="button special icon fa-youtube-play">Confirm Youtube subscription</button>');
+      // Call handleAuthClick function when user clicks on "Authorize" button.
+      $('#confirmYoutubeSubscription').click(function() {
+        handleAuthClick(event);
+      }); 
 	    }
 	    
 	} else {
@@ -538,6 +542,8 @@ var accountInterval = setInterval(function() {
 
 
 window.addEventListener('load', async () => {
+jQuery("#cardTitle").fitText(2);
+	
     // Modern dapp browsers...
     if (window.ethereum) {
         window.web3 = new Web3(ethereum);
@@ -569,9 +575,6 @@ window.addEventListener('load', async () => {
 
 
 <script>
-window.onload = function(e) {
-    jQuery("#cardTitle").fitText(2);
-}
 function flip() {
 	document.getElementById("cardContainer").style.transform = "rotateY(180deg)";
 	window.setTimeout(function() { 
@@ -607,10 +610,6 @@ function flip() {
       GoogleAuth.isSignedIn.listen(updateSigninStatus);
       // Handle initial sign-in state. (Determine if user is already signed in.)
       setSigninStatus();
-      // Call handleAuthClick function when user clicks on "Authorize" button.
-      $('#confirmYoutubeSubscription').click(function() {
-        handleAuthClick(event);
-      }); 
     });
   }
   function handleAuthClick(event) {
@@ -718,7 +717,6 @@ function flip() {
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/jquery.scrollex.min.js"></script>
 <script src="../assets/js/jquery.scrolly.min.js"></script>
-<script src="../assets/js/util.js"></script>
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c4fea74b40c8c"></script>
 
