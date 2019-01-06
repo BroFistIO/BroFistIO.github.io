@@ -49,7 +49,7 @@
 
   function setSigninStatus() {
     var user = GoogleAuth.currentUser.get();
-    isAuthorized = user.hasGrantedScopes('https://www.googleapis.com/auth/youtube.force-ssl https://www.googleapis.com/auth/youtubepartner');
+    isAuthorized = user.hasGrantedScopes('https://www.googleapis.com/auth/youtube.readonly');
     // Toggle button text and displayed statement based on current auth status.
     if (isAuthorized) {
       defineRequest();
@@ -136,7 +136,7 @@
 
 buildApiRequest('GET',
                 '/youtube/v3/subscriptions',
-                {'forChannelId': 'UC_x5XG1OV2P6uZZ5FSM9Ttw',
+                {'forChannelId': 'UC-lHJZR3Gqxm24_Vd_AJ5Yw',
                  'mine': 'true',
                  'part': 'snippet,contentDetails'});
 
