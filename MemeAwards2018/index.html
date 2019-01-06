@@ -35,7 +35,7 @@ gtag('config', 'UA-3064259-44');
 <meta name="theme-color" content="#5d4c91">
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../inc/web3-1.0.0-beta.37.js"></script>
-<script src="../inc/jquery.fittext.js"></script>
+<script src="../inc/jquery.fittext.js">jQuery("#cardTitle").fitText(2);</script>
 <style>
 #claimTokenActions {
     text-align: center;
@@ -568,9 +568,6 @@ window.addEventListener('load', async () => {
 
 	
 <script>
-window.onload = function(e) {
-    jQuery("#cardTitle").fitText(2);
-}
 function flip() {
 	document.getElementById("cardContainer").style.transform = "rotateY(180deg)";
 	window.setTimeout(function() { 
