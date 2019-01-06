@@ -542,8 +542,6 @@ var accountInterval = setInterval(function() {
 
 
 window.addEventListener('load', async () => {
-jQuery("#cardTitle").fitText(2);
-	
     // Modern dapp browsers...
     if (window.ethereum) {
         window.web3 = new Web3(ethereum);
@@ -573,7 +571,9 @@ jQuery("#cardTitle").fitText(2);
 
 
 
-
+window.onload = function(e) {
+    jQuery("#cardTitle").fitText(2);
+}
 <script>
 function flip() {
 	document.getElementById("cardContainer").style.transform = "rotateY(180deg)";
@@ -717,6 +717,8 @@ function flip() {
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/jquery.scrollex.min.js"></script>
 <script src="../assets/js/jquery.scrolly.min.js"></script>
+<script src="../assets/js/main.js"></script>
+
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c4fea74b40c8c"></script>
 
