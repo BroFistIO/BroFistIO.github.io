@@ -572,6 +572,9 @@ window.addEventListener('load', async () => {
 
 	
 <script>
+window.onload = function(e) {
+    jQuery("#cardTitle").fitText(2);
+}
 function flip() {
 	document.getElementById("cardContainer").style.transform = "rotateY(180deg)";
 	window.setTimeout(function() { 
@@ -704,7 +707,7 @@ function flip() {
   }
 </script>
 <script async defer src="https://apis.google.com/js/api.js" 
-        onload="this.onload=function(){jQuery("#cardTitle").fitText(2);};handleClientLoad()" 
+        onload="this.onload=function(){};handleClientLoad()" 
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
 
