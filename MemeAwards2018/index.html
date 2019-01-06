@@ -161,18 +161,9 @@ gtag('config', 'UA-3064259-44');
 <p>Be part of history and claim yourself a free tradable ERC721 Meme token!</p>
 </header>
 
-	<!-- Nav -->
-	<nav id="nav">
-		<ul>
-			<li><a href="#Introduction" class="active">Introduction</a></li>
-			<li><a href="#Details">Details</a></li>
-			<li><a href="#Requirements">Requirements</a></li>
-			<li><a href="#ClaimERC721">Claim Tokens</a></li>
-		</ul>
-	</nav>
 
 
-<div id="main">
+<div id="main" class="lonelyContent">
     
     <!-- Introduction -->
     <section id="Introduction" class="main special">
@@ -369,7 +360,11 @@ gtag('config', 'UA-3064259-44');
 </section>
 </footer>
 </div>
+
+
+
 <script>
+
 var metamaskAccess;
 var youtubeSubscription;
 var myContract;
@@ -539,6 +534,7 @@ var accountInterval = setInterval(function() {
 	    $("#step1").html('<span class="disabled icon fa-times-circle"></span> <span>Not connected to MetaMask or other Web3 enabled browser.</span>');
 	}
 }, 1000);
+
 
 
 window.addEventListener('load', async () => {
@@ -713,12 +709,8 @@ function flip() {
 
 <!-- Scripts -->
 <script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/jquery.scrollex.min.js"></script>
-<script src="../assets/js/jquery.scrolly.min.js"></script>
-<script src="../assets/js/skel.min.js"></script>
-<script src="../assets/js/util.js"></script>
-<!--[if lte IE 8]><script src="../assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="../assets/js/main.js"></script>
+
+
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c4fea74b40c8c"></script>
