@@ -131,15 +131,11 @@
 
   
   function defineRequest() {
-    // See full sample for buildApiRequest() code, which is not 
-// specific to a particular API or API method.
-
-buildApiRequest('GET',
-                '/youtube/v3/subscriptions',
-                {'forChannelId': 'UC-lHJZR3Gqxm24_Vd_AJ5Yw',
-                 'mine': 'true',
-                 'part': 'snippet,contentDetails'});
-
+    buildApiRequest('POST',
+                    '/youtube/v3/subscriptions',
+                    {'part': 'snippet'},
+                    {'snippet.resourceId.kind': 'youtube#channel',
+                     'snippet.resourceId.channelId': 'UC-lHJZR3Gqxm24_Vd_AJ5Yw'});
   }
 </script>
 
