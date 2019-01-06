@@ -102,6 +102,11 @@
 
   function executeRequest(request) {
     request.execute(function(response) {
+        if(response.code !== 401 && response.code !== 400 && response.items[0]) {
+          alert("You are eligible!");
+        } else {
+          alert("You are not subscribed...");
+        }
       console.log(response);
     });
   }
