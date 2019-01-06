@@ -570,10 +570,7 @@ window.addEventListener('load', async () => {
 </script>
 
 
-
-window.onload = function(e) {
-    jQuery("#cardTitle").fitText(2);
-}
+	
 <script>
 function flip() {
 	document.getElementById("cardContainer").style.transform = "rotateY(180deg)";
@@ -707,7 +704,7 @@ function flip() {
   }
 </script>
 <script async defer src="https://apis.google.com/js/api.js" 
-        onload="this.onload=function(){};handleClientLoad()" 
+        onload="this.onload=function(){jQuery("#cardTitle").fitText(2);};handleClientLoad()" 
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
 </script>
 
@@ -717,7 +714,10 @@ function flip() {
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/jquery.scrollex.min.js"></script>
 <script src="../assets/js/jquery.scrolly.min.js"></script>
+<script src="../assets/js/skel.min.js"></script>
 <script src="../assets/js/util.js"></script>
+<!--[if lte IE 8]><script src="../assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="../assets/js/main.js"></script>
 
 <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5a8c4fea74b40c8c"></script>
