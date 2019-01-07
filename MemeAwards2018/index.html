@@ -387,7 +387,6 @@ gtag('config', 'UA-3064259-44');
 
 
 <script>
-var airdropStatus;
 var metamaskAccess;
 var youtubeSubscription;
 var myContract;
@@ -607,17 +606,14 @@ window.addEventListener('load', async () => {
             option = {from: accounts[0] };
             myContract = new web3.eth.Contract(ABI, address);
 		
-myContract.methods.isAirdropOver().call(function(error,result) {
-	if(!error) {airdropStatus = '<span class="enabled"><strong>currently active</strong></span>';} else {airdropStatus = '<span class="disabled"><strong>no longer active</strong></span>';}
-});
-		
-myContract.methods.totalSupply().call(function(error,result) {
-	if(!error) {
-$("#tokenStats").html('There are currently <strong>'+result+'</strong> tokens in circulation. The airdrop is '+airdropStatus+'.');
-	} else {
-$("#tokenStats").html('<span class="disabled icon fa-times-circle"></span> <span>Unable to load data... please connect with MetaMask or other Web3 enabled browser.</span>');
-	}
-});
+		// Look up statistics...
+		myContract.methods.totalSupply().call(function(error,result) {
+			if(!error) {
+				$("#tokenStats").html('There are currently <strong>'+result+'</strong> tokens in circulation.');
+			} else {
+				$("#tokenStats").html('Unable to load data... please connect with MetaMask or other Web3 enabled browser.');
+			}
+		});
 
 		
         } catch (error) {
