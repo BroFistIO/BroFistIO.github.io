@@ -572,7 +572,7 @@ var accountInterval = setInterval(function() {
                     }
                 } else {
                     // Error with getting token balance...
-                    $("#step3").html('<span class="disabled icon fa-times-circle"></span> <span>Error getting token balance. Are you connected to '+currentNetwork+'?</span>');
+                    $("#step3").html('<span class="disabled icon fa-times-circle"></span> <span>Error getting token balance... make sure you are connected to '+currentNetwork+'.</span>');
                 }
                 
             }); // Query token balance
@@ -612,7 +612,7 @@ window.addEventListener('load', async () => {
 			if(!error) {
 				$("#tokenStats").html('There are currently <strong>'+result+'</strong> tokens in circulation.');
 			} else {
-				$("#tokenStats").html('Error... Are you connected to '+currentNetwork+'?');
+				$("#tokenStats").html('Error... make sure you are connected to '+currentNetwork+'.');
 			}
 		});
 
