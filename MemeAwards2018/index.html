@@ -185,44 +185,50 @@ gtag('config', 'UA-3064259-44');
 
 
 <div id="main" class="lonelyContent">
-    
+	
+	
+	<!-- Countdown -->
+	<section id="CountdownTimer" class="main">
+
+	<script>		
+	const second = 1000,
+		  minute = second * 60,
+		  hour = minute * 60,
+		  day = hour * 24;
+
+	let countDown = new Date('Feb 05, 2019 04:20:00').getTime(),
+		x = setInterval(function() {
+
+		  let now = new Date().getTime(),
+			  distance = countDown - now;
+
+		  document.getElementById('days').innerText = Math.floor(distance / (day)),
+			document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+			document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+			document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+		  
+		  //do something later when date is reached
+		if (distance < 0) {
+			clearInterval(x);
+		}
+
+		}, second)
+	</script>
+	<div class="countdown">
+	<h3>Time left until airdrop is over</h3>
+		<div class="timeBlock"><span id="days"></span>days</div>
+		<div class="timeBlock"><span id="hours"></span>Hours</div>
+		<div class="timeBlock"><span id="minutes"></span>Minutes</div>
+		<div class="timeBlock"><span id="seconds"></span>Seconds</div>
+	</div>
+
+	</section>
+	
+	
+	
     <!-- Introduction -->
     <section id="Introduction" class="main special">
 	    
-<script>		
-const second = 1000,
-      minute = second * 60,
-      hour = minute * 60,
-      day = hour * 24;
-
-let countDown = new Date('Feb 05, 2019 04:20:00').getTime(),
-    x = setInterval(function() {
-
-      let now = new Date().getTime(),
-          distance = countDown - now;
-
-      document.getElementById('days').innerText = Math.floor(distance / (day)),
-        document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
-        document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
-        document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
-      
-      //do something later when date is reached
-	if (distance < 0) {
-		clearInterval(x);
-	}
-
-    }, second)
-</script>
-<div class="countdown">
-<h3>Time left until airdrop is over</h3>
-    <div class="timeBlock"><span id="days"></span>days</div>
-    <div class="timeBlock"><span id="hours"></span>Hours</div>
-    <div class="timeBlock"><span id="minutes"></span>Minutes</div>
-    <div class="timeBlock"><span id="seconds"></span>Seconds</div>
-</div>
-
- <br>
-        
         <header class="major"> 
             <h2>Hold up, what is all this?</h2>
         </header>
