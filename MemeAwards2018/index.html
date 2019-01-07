@@ -608,7 +608,7 @@ window.addEventListener('load', async () => {
             myContract = new web3.eth.Contract(ABI, address);
 		
 myContract.methods.isAirdropOver().call(function(error,result) {
-	if(!error) {airdropStatus = "currently active";} else {airdropStatus = "no longer active";}
+	if(!error) {airdropStatus = '<span class="enabled"><strong>currently active</strong></span>';} else {airdropStatus = '<span class="disabled"><strong>no longer active</strong></span>';}
 });
 		
 myContract.methods.totalSupply().call(function(error,result) {
