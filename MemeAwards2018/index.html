@@ -146,6 +146,24 @@ gtag('config', 'UA-3064259-44');
     		padding-right: 30%;
     		font-size: 0.75em;
     	}
+	
+.countdownWrapper {
+  color: #333;
+  text-align: center;
+}
+
+.timeBlock {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
+}
+
+.timeBlock span {
+  display: block;
+  font-size: 4.5rem;
+}
 </style>
 </head>
 <body>
@@ -170,6 +188,37 @@ gtag('config', 'UA-3064259-44');
     
     <!-- Introduction -->
     <section id="Introduction" class="main special">
+	    
+<script>		
+const second = 1000,
+      minute = second * 60,
+      hour = minute * 60,
+      day = hour * 24;
+
+let countDown = new Date('Sep 30, 2019 00:00:00').getTime(),
+    x = setInterval(function() {
+
+      let now = new Date().getTime(),
+          distance = countDown - now;
+
+      document.getElementById('days').innerText = Math.floor(distance / (day)),
+        document.getElementById('hours').innerText = Math.floor((distance % (day)) / (hour)),
+        document.getElementById('minutes').innerText = Math.floor((distance % (hour)) / (minute)),
+        document.getElementById('seconds').innerText = Math.floor((distance % (minute)) / second);
+      
+      //do something later when date is reached
+	if (distance < 0) {
+		clearInterval(x);
+	}
+
+    }, second)
+</script>
+<div class="countdown">
+    <div class="timeBlock"><span id="days"></span>days</div>
+    <div class="timeBlock"><span id="hours"></span>Hours</div>
+    <div class="timeBlock"><span id="minutes"></span>Minutes</div>
+    <div class="timeBlock"><span id="seconds"></span>Seconds</div>
+</div>
         
         <header class="major"> 
             <h2>Hold up, what is all this?</h2>
@@ -247,8 +296,8 @@ gtag('config', 'UA-3064259-44');
         
         <div class="additionalSqueeze">
             <h3>What are the requirements?</h3>
-            
-            <p>You can claim a free ERC721 meme token for the next (timestamp) provided that you are <strong>subscribed to PewDiePie</strong>, allow 
+ 
+            <p>You can claim a free ERC721 meme token provided that you are <strong>subscribed to PewDiePie</strong>, allow 
             <strong>MetaMask</strong> or other Web3 enabled browser to <strong>connect to our dapp</strong> and have enough ETH in your balance to cover 
             the network <strong>transaction fee</strong> (Gas) it takes to confirm the transaction.
             </p>
