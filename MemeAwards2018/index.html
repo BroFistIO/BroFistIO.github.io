@@ -35,7 +35,6 @@ gtag('config', 'UA-3064259-44');
 <meta name="theme-color" content="#5d4c91">
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../inc/web3-1.0.0-beta.37.js"></script>
-<script src="../inc/jquery.fittext.js">jQuery("#cardTitle").fitText(2);</script>
 <style>
 #claimTokenActions {
     text-align: center;
@@ -138,6 +137,7 @@ gtag('config', 'UA-3064259-44');
 	}
 	
     	.cardDescriptionContainer p {
+		line-height: 1.4;
     		position: absolute;
     		top: 25%;
     		left: 4%;
@@ -323,6 +323,26 @@ gtag('config', 'UA-3064259-44');
 	    </div>
     
      </section>
+	
+	
+	
+	
+    <!-- Statistics -->
+    <section id="Requirements" class="main">
+        
+        <div class="additionalSqueeze">
+            <h3>Statistics</h3>
+            
+            <p id="tokenStats">
+            </p>
+		
+            <p id="theSmartContract">
+		You can visit <a href="https://ropsten.etherscan.io/address/0xad3489875209933f8814d857a0a1cd2d828d310c" target="_blank" rel="nofollow">Etherscan</a> to view the smart contract for additional information.
+            </p>
+		
+        </div>
+    
+     </section>
      
 </div>
 
@@ -373,8 +393,8 @@ var youtubeSubscription;
 var myContract;
 var accounts;
 var option;
-$("#cardTitle").text("Which meme will you get?");
-$("#cardDescription").text("Complete the steps to find out!!");
+$("#cardTitle").text("Which meme will it be?");
+$("#cardDescription").text("Complete the steps and find out!");
 $("#cardImage").attr("src","default.jpg");
 
 var address = "0xad3489875209933f8814d857a0a1cd2d828d310c";
@@ -450,7 +470,16 @@ var ABI = [
         "payable":false,
         "stateMutability":"view",
         "type":"function"
-    }
+    },
+	
+{
+	"constant":true,
+	"inputs":[],"name":"totalSupply",
+	"outputs":[{"name":"","type":"uint256"}],
+	"payable":false,
+	"stateMutability":"view",
+	"type":"function"
+}
 ];
 
 var accountInterval = setInterval(function() {
@@ -494,6 +523,7 @@ var accountInterval = setInterval(function() {
                                         flip();
                                         var template = result[0].toString();
                                         var memeName = result[1].toString();
+					    // Formatting...
 					    if(memeName.length <= 18) {
 						$("#cardTitle").css("height", "10%");
 					    }
@@ -555,6 +585,16 @@ window.addEventListener('load', async () => {
             accounts = await web3.eth.getAccounts();
             option = {from: accounts[0] };
             myContract = new web3.eth.Contract(ABI, address);
+		
+myContract.methods.totalSupply().call(function(error,result) {
+	if(!error) {
+$("#tokenStats").html('There are currently <strong>'+result+'</strong> tokens in circulation. ');
+	} else {
+$("#tokenStats").html('<span class="disabled icon fa-times-circle"></span> <span>Unable to load data... please connect with MetaMask or other Web3 enabled browser.</span>');
+	}
+});
+
+		
         } catch (error) {
             // User denied account access...
         }
