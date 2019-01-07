@@ -387,6 +387,7 @@ gtag('config', 'UA-3064259-44');
 
 
 <script>
+var currentNetwork = "Ropsten Testnet";
 var metamaskAccess;
 var youtubeSubscription;
 var myContract;
@@ -570,8 +571,8 @@ var accountInterval = setInterval(function() {
                         clearInterval(accountInterval);
                     }
                 } else {
-                    // Error with balanceOf...
-                    $("#step3").html('<span class="disabled icon fa-times-circle"></span> <span>Error getting token balance. Is the connection enabled?</span>');
+                    // Error with getting token balance...
+                    $("#step3").html('<span class="disabled icon fa-times-circle"></span> <span>Error getting token balance. Are you connected to '+currentNetwork'?</span>');
                 }
                 
             }); // Query token balance
@@ -611,7 +612,7 @@ window.addEventListener('load', async () => {
 			if(!error) {
 				$("#tokenStats").html('There are currently <strong>'+result+'</strong> tokens in circulation.');
 			} else {
-				$("#tokenStats").html('Unable to load data... please connect with MetaMask or other Web3 enabled browser.');
+				$("#tokenStats").html('Error... Are you connected to '+currentNetwork'?');
 			}
 		});
 
