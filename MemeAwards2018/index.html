@@ -387,7 +387,7 @@ gtag('config', 'UA-3064259-44');
 
 
 <script>
-
+var airdropStatus;
 var metamaskAccess;
 var youtubeSubscription;
 var myContract;
@@ -608,7 +608,6 @@ window.addEventListener('load', async () => {
             myContract = new web3.eth.Contract(ABI, address);
 		
 myContract.methods.isAirdropOver().call(function(error,result) {
-	var airdropStatus;
 	if(!error) {airdropStatus = "currently active";} else {airdropStatus = "no longer active";}
 });
 		
