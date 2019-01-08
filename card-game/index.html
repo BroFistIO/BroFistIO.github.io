@@ -198,43 +198,85 @@
 	<section id="DevLog" class="main">
 	
 	<h2>Current state of development</h2>
-	
+	<span>Edited on January 8th 2019</span>
 	<p>
 	Now that the playable demo is finally out it's time to proceed with phase 2!<br><br>
 	
 	I've been looking more and more into the ERC721 standard, reading every possible guide and tutorial I can find. I know 
-	how to create the contract that holds all of the cards and I know how to add new cards into the contract at a later date.<br><br>
-	
-	I'm currently stuck at figuring out the best way to mint new cards in the contract. Since I want to give everyone 
-	a fair chance, I can't just create a contract with all the trading cards and put them for sale for BrofistCoin. That would 
-	mean the people who own more BrofistCoin would get an <strong>unfair advantage</strong>.<br><br>
-	
-	Instead I've been thinking about building the contract in such a way where each new player (who owns 0 cards) is given 
-	a mystery box containing 5 randomly picked level 1 cards. In case you didn't know, the trading cards have "levels" ranging 
-	from 1 to 10 which reflect their overall rarity (note to self: cards will probably need a multiplier of sorts which 
-	tells the card minting function the overall chance for that particular card to get minted).<br><br>
-	
-	The initial free starter pack should be enough to get everyone started. The "ladder model" mentioned earlier will allow 
-	players to play against tougher and tougher opponents. At the bottom of the ladder is the level 1 opponent who will only 
-	play using level 1 cards. Upon winning that round, the level 2 opponent will use both level 1 and 2 cards etc. All the 
-	way up until the level 10 opponent who uses all the cards available from level 1 to 10 (currently 112 cards).<br><br>
-	
-	Every time a player wins a round the game will choose a random card <strong>from the current hand</strong> of the opponent and gives the 
-	card to the player. This is how you get new cards! (note to self: is this enough to make higher level cards really rare?
-	Probably need to use the multiplier too.)<br><br>
-	
-	Not only do the cards get stronger as the opponent's level increases, the difficulty setting is set out in a way where 
-	the opponent is not very smart between levels 1-3, somewhat smart at levels 4-7 and extremely offensive at levels 8-10.
+	how to create the contract that holds all of the cards and I know how to add new cards into the contract at a later date.
+	<br><br>
+	In fact I'm pretty sure I have figured out the entire official ERC721 standard (yay for me!) and you can check out one of 
+	my custom implementations right here: <a href="https://brofistcoin.io/MemeAwards2018/" target="_blank">Meme Awards 2018</a>.
+	It's on Ropsten testnet and I would really appreciate if you tried your best to break it ;)
+	<br><br>
+	Anyway, about the trading cards game. I've made some progress in the sense that I have most of the smart contract ready now.
+	Obviously the next difficult step is to develop a good front-end for it. Not only that, but a lot of the game mechanics will 
+	still be off-chain. For example the functions that compare card values on the board are all off-chain and could be potentially 
+	exploited, am I right? I don't know for sure yet. I really hope not because that would mean I'd have to rewrite the entire 
+	game in Solidity. Not to mention that it would cost way more in Gas for everyone involved. For now I think it's best if we 
+	only queried the card values from the blockchain. 
+	<br><br>
+	You may remember that I wanted to develop a fair game and not a game where you pay money and get ahead of others. I also wanted 
+	to make the minting of new cards fair so here's what I have come up with so far:
+	<br><br>
+	First of all there will be 0 minted cards initially. The only way the contract mints a new card is when a player opens 
+	a mystery box or wins a game round. There will be no other way to mint new cards into existence. 
+	<br><br>
+	A first time player is offered a mystery box which contains 5 randomly chosen cards from level 1 cards (currently 
+	around 10). I know, I know. Randomness on the blockchain doesn't exist. But I think for our purposes a basic implementation 
+	will do just fine. A much bigger problem is the fact that generating random numbers 5 times and then writing the cards data 
+	for the new owner on the blockchain will cost a lot of Gas. I'm talking more than $1 with current ETH prices. So far I have
+	not figured out a way around that. I believe the only viable option is to use the loom plasmachain, but I have not been able to run my own 
+	it successfully yet. Even after following the tutorials. Oof... (Would appreciate some help with this!)
+	<br><br>
+	A player may receive more than one of the same card. Now they're still completely unique from an ERC721 standpoint, but they 
+	can be represented by the same meme. Besides having multiple cards means that you want to trade one for some other card which 
+	is what will really make this game awesome. Players will be able to trade cards with each other and buy/sell cards using 
+	BrofistCoin.
+	<br><br>
+	There is also what I like to call the "ladder model" which is basically a counter from 1 to 10. What this does is, the game 
+	increments this counter for the player every time they win. A player who has only opened the mystery box, but has not yet
+	played any rounds will start off at level 1 or at the very bottom of the ladder. On this level the opponent will only use 
+	level 1 cards and is not very smart. In other words it does stupid moves that make little sense. 
+	<br><br>
+	As the the player wins rounds and climbs the ladder, the opponent starts to use stronger cards. On level 2 the opponent 
+	uses both level 1 and level 2 cards, on level 3 the opponent uses cards from levels 1-3 etc. Until at level 10 where the 
+	opponent uses all the cards in the game and also makes moves that are highly offensive and calculated.
 	This will make the stronger opponents harder to beat, forcing the player to come up with a good strategy by taking advantage 
-	of the Same, Plus and Combo rules instead of simply placing strong cards all over the table.<br><br>
-	
-	Naturally there will be a decentralized marketplace for all of these trading cards so if you happen to own multiple, 
-	you can sell them to the highest bidder for BrofistCoin ;) I am currently looking at integrating OpeanSea because I heard they 
-	allow your own token to be used as currency. <br><br>
-	
-	And finally I got this really awesome idea of "gilded cards". Whenever the player wins the round and the contract chooses 
-	a random card from the opponent's deck to reward the player, there is an insanely small chance for that card to become 
-	"gilded" meaning it will have some epic style visual aspects and boosted stats.
+	of the Same, Plus and Combo rules instead of simply placing strong cards all over the table.
+	<br><br>
+	What about rarity levels?
+	<br><br>
+	I thought long and hard about this and what I ended up doing is, when the player wins a round, the contract will choose 
+	a random card for them as a reward from the current hand the opponent had at the time it lost to the player. That hand 
+	can only have 5 cards so the other options are automatically ignored. Also, since the level 1 opponent uses only level 1 
+	cards, then, when the player wins, they can only get a level 1 card. But now when they are playing on level 2, they have the 
+	chance to encounter a level 2 card in the opponent's hand. This goes all the way up to the final levels where 
+	the chance for any card to appear in the opponent's hand is reduced by the amount of total cards in the game.
+	<br><br>
+	I really hope all this makes sense so far!
+	<br><br>
+	Basically what will happen over time is that there will be a lot of low level cards and fewer high level cards in existence.
+	But then we will be faced with another problem. Who would want to trade all of those low level cards? Thankfully Luis from 
+	our team had an answer! We will allow 3 of the same type cards to be burned in exchange for 1 random card from the level 
+	above the burned cards. For example if I manage to collect 3 of the same card that are level 5, I can choose to destroy those cards 
+	forever and get a random level 6 card in exchange. This way the supply of lower level cards will always be controlled to a 
+	certain degree and so they won't become utterly worthless over time.
+	<br><br>
+	Doesn't that make higher level cards not so rare though? Well, yeah. But... any time any card is 
+	minted at all, the function generates a random number between 1 and 1000. It then generates another number in the same 
+	range and compares them. If the unimaginable happens and the two generated numbers match, the card being minted 
+	will get a special mark on them. In other words it will become a gilded card. Any card can become one, but the chance for 
+	that to happen is very low. Naturally these gilded cards will look shinier and perhaps even have boosted stats!
+	<br><br>
+	Note: there is a better way to do this but I haven't figured it out. It's called weighted numbers and I'm not a mathematician 
+	so if you have a good formula I can use please let me know. 
+	<br><br>
+	And finally the way I hope to force every player to "beat the game" and win a level 10 opponent is that once you win, say, 
+	a level 1 opponent, you are stuck with playing against a level 2 until you win and climb further. This is not ideal if you 
+		intended to collect all of the available level 1 cards first and then continue playing against the next level. The 
+		only way to be able to "jump into" your chosen level is to first win the game! You will need to beat a level 10 
+		opponent before the teleportation function becomes available to you :)
 	</p>
 	
 	</section>
