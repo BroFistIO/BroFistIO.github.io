@@ -272,10 +272,10 @@ window.addEventListener('load', async () => {
             // Request account access if needed
             await ethereum.enable();
             // Acccounts now exposed
-		hasAccess = true;
+		hasAccess = "confirmed";
         } catch (error) {
             // User denied account access...
-		hasAccess = false;
+		hasAccess = "denied";
 		$('#Web3Notification').fadeIn(200);
             $('#Web3Info h1').text('Web3 access denied!');
             $('#Web3Info p').text('In order to interact with this DApp you need \
@@ -287,11 +287,11 @@ window.addEventListener('load', async () => {
     else if (window.web3) {
         window.web3 = new Web3(web3.currentProvider);
         // Acccounts always exposed
-        hasAccess = true;
+        hasAccess = "confirmed";
     }
     // Non-dapp browsers...
     else {
-	    hasAccess = false;
+	    hasAccess = "noweb3";
     }
 });
 
@@ -410,7 +410,7 @@ async function initialize() {
 
 // Get access to DApp
 $('#gainAccess').click(function(){
-if(!hasAccess){
+if(hasAccess == "noweb3"){
 $('#Web3Notification').fadeIn(200);
 $('#Web3Info h1').text('Non-dapp browser detected!');
 $('#Web3Info p').text('It looks like your browser does not currently \
@@ -419,14 +419,14 @@ in your browser today.');
 $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
 rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
 }
-else if(hasAccess == 'undefined'){
+else if(hasAccess == "undefined"){
 $('#Web3Info h1').text('Waiting for connection...');
 $('#Web3Info p').text('In order to interact with this DApp you need \
 to first approve the Web3 connection request. If you are having trouble\
 then <a id="reloadPage">refreshing</a> the page might help.');
 $('#Web3Info').append('<img src="metafox.png" alt="Info"/>');
 }
-else if(hasAccess){
+else if(hasAccess == "confirmed"){
 initialize();
 }
 });
