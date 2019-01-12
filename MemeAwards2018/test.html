@@ -37,7 +37,7 @@ gtag('config', 'UA-3064259-44');
 <script src="../inc/web3-1.0.0-beta.37.js"></script>
 <style>
 /* Initially hidden */
-#claimTokenButton, .cardWrapper {
+#claimTokenButton, .cardWrapper, #Web3Notification, #Loading {
     display: none;
 }
 
@@ -56,7 +56,7 @@ gtag('config', 'UA-3064259-44');
 }
 #Web3Info {
     width: 100%;
-    max-width: 250px;
+    max-width: 350px;
     height: auto;
     margin: 0 auto;
     padding: 2em;
@@ -260,6 +260,7 @@ gtag('config', 'UA-3064259-44');
 <script>
 let contract;
 var userAccounts;
+var hasAccess;
 var hasClaimed;
 var youtubeSubscription;
 
@@ -268,16 +269,14 @@ window.addEventListener('load', async () => {
     if (window.ethereum) {
         window.web3 = new Web3(ethereum);
         try {
-            $('#Web3Info h1').text('Waiting for connection...');
-            $('#Web3Info p').text('In order to interact with this DApp you need \
-            to first approve the Web3 connection request.');
-            $('#Web3Info').append('<img src="../images/metafox.png" alt="Info"/>');
             // Request account access if needed
             await ethereum.enable();
             // Acccounts now exposed
-            initialize();
+		hasAccess = true;
         } catch (error) {
             // User denied account access...
+		hasAccess = false;
+		$('#Web3Notification').fadeIn(200);
             $('#Web3Info h1').text('Web3 access denied!');
             $('#Web3Info p').text('In order to interact with this DApp you need \
             to allow Web3 access. Consider refreshing the page and allowing access.');
@@ -288,10 +287,12 @@ window.addEventListener('load', async () => {
     else if (window.web3) {
         window.web3 = new Web3(web3.currentProvider);
         // Acccounts always exposed
-        initialize();
+        hasAccess = true;
     }
     // Non-dapp browsers...
     else {
+	    hasAccess = false;
+	    $('#Web3Notification').fadeIn(200);
             $('#Web3Info h1').text('Non-dapp browser detected!');
             $('#Web3Info p').text('It looks like your browser does not currently \
             support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
@@ -304,6 +305,7 @@ window.addEventListener('load', async () => {
 // Initialize contract instance, load user data
 async function initialize() {
     $('#Web3Notification').fadeOut(200);
+	$('#Loading').show();
     $('#Loading .info').text('Loading DApp');
     try {
     //let address = "0xCA011eD921eE5a91FdFB86F41d2e317bf5a5B5fC"; old
@@ -411,6 +413,17 @@ async function initialize() {
         $('#Loading').fadeOut(200);
     }
 }
+	
+
+// Get access to DApp
+$('#gainAccess').click(function(){
+if(!hasAccess){
+}
+else {
+	initialize();
+}
+});	
+	
 
 // Clicks on claim token button 
 $('#claimTokenButton').click(function() {
