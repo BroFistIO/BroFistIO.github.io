@@ -418,11 +418,21 @@ async function initialize() {
 // Get access to DApp
 $('#gainAccess').click(function(){
 if(!hasAccess){
+	$('#accessNotification').text('It looks like you have not yet allowed\
+the Web3 connection. Click the button below to try again...');
+	$('#accessNotification').append('<button id="claimTokenButton"\
+class="button special">Reload</button>');
 }
 else {
 	initialize();
 }
-});	
+});
+	
+	
+// Refreshes the page 
+$('#reloadPage').click(function(){
+  location.reload();
+});		
 	
 
 // Clicks on claim token button 
@@ -660,11 +670,15 @@ clearInterval(x);
         
         <div class="additionalSqueeze">
             <h3>Claim Meme Awards 2018 crypto collectible!</h3>
+		
+		<p id="accessNotification"></p>
 
             <a id="subscribeToPewDiePie" class="button special icon fa-youtube-play" href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank">Subscribe to PewDiePie</a>
             
         </div>
 
+<button id="gainAccess" class="button special">Connect Web3</button>	    
+	    
 <button id="claimTokenButton" class="button special icon fa-gift">Claim Meme Token!</button>
 
 <!-- The Card -->
