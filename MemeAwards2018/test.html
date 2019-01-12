@@ -292,13 +292,6 @@ window.addEventListener('load', async () => {
     // Non-dapp browsers...
     else {
 	    hasAccess = false;
-	    $('#Web3Notification').fadeIn(200);
-            $('#Web3Info h1').text('Non-dapp browser detected!');
-            $('#Web3Info p').text('It looks like your browser does not currently \
-            support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
-            in your browser today.');
-            $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
-            rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
     }
 });
 
@@ -418,13 +411,23 @@ async function initialize() {
 // Get access to DApp
 $('#gainAccess').click(function(){
 if(!hasAccess){
-	$('#accessNotification').text('It looks like you have not yet allowed\
-the Web3 connection. Click the button below to try again...');
-	$('#accessNotification').append('<button id="claimTokenButton"\
-class="button special">Reload</button>');
+$('#Web3Notification').fadeIn(200);
+$('#Web3Info h1').text('Non-dapp browser detected!');
+$('#Web3Info p').text('It looks like your browser does not currently \
+support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
+in your browser today.');
+$('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
+rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
 }
-else {
-	initialize();
+else if(hasAccess == 'undefined'){
+$('#Web3Info h1').text('Waiting for connection...');
+$('#Web3Info p').text('In order to interact with this DApp you need \
+to first approve the Web3 connection request. If you are having trouble\
+then <a id="reloadPage">refreshing</a> the page might help.');
+$('#Web3Info').append('<img src="metafox.png" alt="Info"/>');
+}
+else if(hasAccess){
+initialize();
 }
 });
 	
