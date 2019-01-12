@@ -256,6 +256,239 @@ gtag('config', 'UA-3064259-44');
   font-size: 1.5em;
 }
 </style>
+<!-- The DApp -->
+<script>
+let contract;
+var userAccounts;
+var hasClaimed;
+var youtubeSubscription;
+
+window.addEventListener('load', async () => {
+    // Modern dapp browsers...
+    if (window.ethereum) {
+        window.web3 = new Web3(ethereum);
+        try {
+            $('#Web3Info h1').text('Waiting for connection...');
+            $('#Web3Info p').text('In order to interact with this DApp you need \
+            to first approve the Web3 connection request.');
+            $('#Web3Info').append('<img src="../images/metafox.png" alt="Info"/>');
+            // Request account access if needed
+            await ethereum.enable();
+            // Acccounts now exposed
+            initialize();
+        } catch (error) {
+            // User denied account access...
+            $('#Web3Info h1').text('Web3 access denied!');
+            $('#Web3Info p').text('In order to interact with this DApp you need \
+            to allow Web3 access. Consider refreshing the page and allowing access.');
+            $('#Web3Info img').attr('src','../images/info.png');
+        }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+        window.web3 = new Web3(web3.currentProvider);
+        // Acccounts always exposed
+        initialize();
+    }
+    // Non-dapp browsers...
+    else {
+            $('#Web3Info h1').text('Non-dapp browser detected!');
+            $('#Web3Info p').text('It looks like your browser does not currently \
+            support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
+            in your browser today.');
+            $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
+            rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
+    }
+});
+
+// Initialize contract instance, load user data
+async function initialize() {
+    $('#Web3Notification').fadeOut(200);
+    $('#Loading .info').text('Loading DApp');
+    try {
+    //let address = "0xCA011eD921eE5a91FdFB86F41d2e317bf5a5B5fC"; old
+    let address = "0x756fee561baa951264cd6912e431111a80185fcf"; //no claim check
+    let ABI = [
+    {
+        "constant":false,
+        "inputs":[],
+        "name":"claimMeme",
+        "outputs":[],
+        "payable":false,
+        "stateMutability":"nonpayable",
+        "type":"function"
+    },
+    
+    {
+        "constant":true,
+        "inputs":[{"name":"_owner","type":"address"}],
+        "name":"getMemesByOwner",
+        "outputs":[{"name":"","type":"uint256[]"}],
+        "payable":false,
+        "stateMutability":"view",
+        "type":"function"
+    },
+    
+    {
+        "constant":true,
+        "inputs":[{"name":"","type":"address"}],
+        "name":"hasClaimed",
+        "outputs":[{"name":"","type":"bool"}],
+        "payable":false,
+        "stateMutability":"view",
+        "type":"function"
+    },
+    	
+    {
+    	"constant":true,
+    	"inputs":[],
+    	"name":"isAirdropOver",
+    	"outputs":[{"name":"","type":"bool"}],
+    	"payable":false,
+    	"stateMutability":"view",
+    	"type":"function"
+    },
+    
+    {
+        "constant":true,
+        "inputs":[],
+        "name":"getEndTime",
+        "outputs":[{"name":"","type":"uint256"}],
+        "payable":false,
+        "stateMutability":"view",
+        "type":"function"
+    },
+    
+    {
+        "constant":true,
+        "inputs":[{"name":"tokenId","type":"uint256"}],
+        "name":"tokenURI",
+        "outputs":[{"name":"","type":"string"}],
+        "payable":false,
+        "stateMutability":"view",
+        "type":"function"
+    },
+    
+    {
+        "constant":true,
+        "inputs":[{"name":"owner","type":"address"}],
+        "name":"balanceOf",
+        "outputs":[{"name":"","type":"uint256"}],
+        "payable":false,
+        "stateMutability":"view",
+        "type":"function"
+    }];
+    contract = new web3.eth.Contract(ABI, address);
+    userAccounts = await web3.eth.getAccounts();
+    hasClaimed = await contract.methods.hasClaimed(userAccounts[0]).call();
+    
+        // Load the card data if already claimed 
+        if(hasClaimed){
+            loadCardData();
+        } else {
+            // Show subscribe button instead
+            $('#subscribeToPewDiePie').fadeIn(200);
+            
+            function checkSubscription(){
+                if(!youtubeSubscription){
+                    // Not subscribed to PewDiePie
+                } else {
+                    // Subscribed to PewDiePie!
+                    clearInterval(interval);
+                    $('#subscribeToPewDiePie').hide();
+                    $('#claimTokenButton').fadeIn(200);
+                }
+            }
+            
+            // Check for subscription every 1s
+            var interval = setInterval(checkSubscription, 1000);
+            
+        }
+    
+    } catch (error) {
+        console.error(error);
+    } finally {
+        $('#Loading').fadeOut(200);
+    }
+}
+
+// Clicks on claim token button 
+$('#claimTokenButton').click(function() {
+    // Tell user to confirm 
+    $('#Loading').fadeIn(200);
+    $('#Loading .info').text('Please confirm this transaction...');
+    function waitForReceipt(hash, cb) {
+      web3.eth.getTransactionReceipt(hash, function (err, receipt) {
+        if (err) {
+          error(err);
+        }
+        if (receipt !== null) {
+          // Transaction went through
+          if (cb) {
+            cb(receipt);
+          }
+        } else {
+          // Try again in 1 second
+          window.setTimeout(function () {
+            waitForReceipt(hash, cb);
+          }, 1000);
+        }
+      });
+    }
+    contract.methods.claimMeme().send({from: userAccounts[0]},
+    function(error,hash){
+        if(!error){
+            $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
+            waitForReceipt(hash, function (receipt) {
+                // Success! Transaction confirmed 
+                $('#claimTokenButton').hide();
+                setTimeout(loadCardData, 2000); //Bigger than waitForReceipt
+                $('#Loading .info').text('Transaction confirmed!');
+                $('#Loading').fadeOut(2000);
+            });
+        } else {
+            $('#Loading .info').text('Error. Transaction rejected?');
+            $('#Loading').fadeOut(2000);
+            console.log(error);
+        }
+    })
+});
+
+
+// Clickable card 
+$('.cardWrapper').click(function(){
+    flip();
+});
+
+
+// Flip the card
+function flip(){
+    $('#cardContainer').css('transform', 'rotateY(180deg)');
+	window.setTimeout(function() {
+	    // Because frame is transparent and the back showed through :P
+		$('.cardFront').css('display', 'none');
+	}, 250);
+}
+
+
+// Load card data & flip 
+async function loadCardData(){
+    try{
+        let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
+        let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
+        $.getJSON(ownedTokensUri, function(data) {
+            $("#cardTitle").text(data.name);
+            $("#cardDescription").text(data.description);
+            $("#cardImage").attr("src",data.image); 
+        })
+        $('.cardWrapper').fadeIn(200);
+    } catch (error) {
+        console.error(error);
+    } finally {
+        flip();
+    }
+}
+</script>
 </head>
 <body>
 <div id="wrapper">
@@ -517,245 +750,10 @@ clearInterval(x);
 </footer>
 </div>
 
-
-
-
-<!-- The DApp -->
-<script>
-let contract;
-var userAccounts;
-var hasClaimed;
-var youtubeSubscription;
-
-window.addEventListener('load', async () => {
-    // Modern dapp browsers...
-    if (window.ethereum) {
-        window.web3 = new Web3(ethereum);
-        try {
-            $('#Web3Info h1').text('Waiting for connection...');
-            $('#Web3Info p').text('In order to interact with this DApp you need \
-            to first approve the Web3 connection request.');
-            $('#Web3Info').append('<img src="../images/metafox.png" alt="Info"/>');
-            // Request account access if needed
-            await ethereum.enable();
-            // Acccounts now exposed
-            initialize();
-        } catch (error) {
-            // User denied account access...
-            $('#Web3Info h1').text('Web3 access denied!');
-            $('#Web3Info p').text('In order to interact with this DApp you need \
-            to allow Web3 access. Consider refreshing the page and allowing access.');
-            $('#Web3Info img').attr('src','../images/info.png');
-        }
-    }
-    // Legacy dapp browsers...
-    else if (window.web3) {
-        window.web3 = new Web3(web3.currentProvider);
-        // Acccounts always exposed
-        initialize();
-    }
-    // Non-dapp browsers...
-    else {
-            $('#Web3Info h1').text('Non-dapp browser detected!');
-            $('#Web3Info p').text('It looks like your browser does not currently \
-            support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
-            in your browser today.');
-            $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
-            rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
-    }
-});
-
-// Initialize contract instance, load user data
-async function initialize() {
-    $('#Web3Notification').fadeOut(200);
-    $('#Loading .info').text('Loading DApp');
-    try {
-    //let address = "0xCA011eD921eE5a91FdFB86F41d2e317bf5a5B5fC"; old
-    let address = "0x756fee561baa951264cd6912e431111a80185fcf"; //no claim check
-    let ABI = [
-    {
-        "constant":false,
-        "inputs":[],
-        "name":"claimMeme",
-        "outputs":[],
-        "payable":false,
-        "stateMutability":"nonpayable",
-        "type":"function"
-    },
-    
-    {
-        "constant":true,
-        "inputs":[{"name":"_owner","type":"address"}],
-        "name":"getMemesByOwner",
-        "outputs":[{"name":"","type":"uint256[]"}],
-        "payable":false,
-        "stateMutability":"view",
-        "type":"function"
-    },
-    
-    {
-        "constant":true,
-        "inputs":[{"name":"","type":"address"}],
-        "name":"hasClaimed",
-        "outputs":[{"name":"","type":"bool"}],
-        "payable":false,
-        "stateMutability":"view",
-        "type":"function"
-    },
-    	
-    {
-    	"constant":true,
-    	"inputs":[],
-    	"name":"isAirdropOver",
-    	"outputs":[{"name":"","type":"bool"}],
-    	"payable":false,
-    	"stateMutability":"view",
-    	"type":"function"
-    },
-    
-    {
-        "constant":true,
-        "inputs":[],
-        "name":"getEndTime",
-        "outputs":[{"name":"","type":"uint256"}],
-        "payable":false,
-        "stateMutability":"view",
-        "type":"function"
-    },
-    
-    {
-        "constant":true,
-        "inputs":[{"name":"tokenId","type":"uint256"}],
-        "name":"tokenURI",
-        "outputs":[{"name":"","type":"string"}],
-        "payable":false,
-        "stateMutability":"view",
-        "type":"function"
-    },
-    
-    {
-        "constant":true,
-        "inputs":[{"name":"owner","type":"address"}],
-        "name":"balanceOf",
-        "outputs":[{"name":"","type":"uint256"}],
-        "payable":false,
-        "stateMutability":"view",
-        "type":"function"
-    }];
-    contract = new web3.eth.Contract(ABI, address);
-    userAccounts = await web3.eth.getAccounts();
-    hasClaimed = await contract.methods.hasClaimed(userAccounts[0]).call();
-    
-        // Load the card data if already claimed 
-        if(hasClaimed){
-            loadCardData();
-        } else {
-            // Show subscribe button instead
-            $('#subscribeToPewDiePie').fadeIn(200);
-            
-            function checkSubscription(){
-                if(!youtubeSubscription){
-                    // Not subscribed to PewDiePie
-                } else {
-                    // Subscribed to PewDiePie!
-                    clearInterval(interval);
-                    $('#subscribeToPewDiePie').hide();
-                    $('#claimTokenButton').fadeIn(200);
-                }
-            }
-            
-            // Check for subscription every 1s
-            var interval = setInterval(checkSubscription, 1000);
-            
-        }
-    
-    } catch (error) {
-        console.error(error);
-    } finally {
-        $('#Loading').fadeOut(200);
-    }
-}
-
-// Clicks on claim token button 
-$('#claimTokenButton').click(function() {
-    // Tell user to confirm 
-    $('#Loading').fadeIn(200);
-    $('#Loading .info').text('Please confirm this transaction...');
-    function waitForReceipt(hash, cb) {
-      web3.eth.getTransactionReceipt(hash, function (err, receipt) {
-        if (err) {
-          error(err);
-        }
-        if (receipt !== null) {
-          // Transaction went through
-          if (cb) {
-            cb(receipt);
-          }
-        } else {
-          // Try again in 1 second
-          window.setTimeout(function () {
-            waitForReceipt(hash, cb);
-          }, 1000);
-        }
-      });
-    }
-    contract.methods.claimMeme().send({from: userAccounts[0]},
-    function(error,hash){
-        if(!error){
-            $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
-            waitForReceipt(hash, function (receipt) {
-                // Success! Transaction confirmed 
-                $('#claimTokenButton').hide();
-                setTimeout(loadCardData, 2000); //Bigger than waitForReceipt
-                $('#Loading .info').text('Transaction confirmed!');
-                $('#Loading').fadeOut(2000);
-            });
-        } else {
-            $('#Loading .info').text('Error. Transaction rejected?');
-            $('#Loading').fadeOut(2000);
-            console.log(error);
-        }
-    })
-});
-
-
-// Clickable card 
-$('.cardWrapper').click(function(){
-    flip();
-});
-
-
-// Flip the card
-function flip(){
-    $('#cardContainer').css('transform', 'rotateY(180deg)');
-	window.setTimeout(function() {
-	    // Because frame is transparent and the back showed through :P
-		$('.cardFront').css('display', 'none');
-	}, 250);
-}
-
-
-// Load card data & flip 
-async function loadCardData(){
-    try{
-        let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
-        let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
-        $.getJSON(ownedTokensUri, function(data) {
-            $("#cardTitle").text(data.name);
-            $("#cardDescription").text(data.description);
-            $("#cardImage").attr("src",data.image); 
-        })
-        $('.cardWrapper').fadeIn(200);
-    } catch (error) {
-        console.error(error);
-    } finally {
-        flip();
-    }
-}
-</script>
-
-
-
+	
+	
+	
+	
 <!-- Google gave me this... I don't know anything else -->
 <script>
   /***** START BOILERPLATE CODE: Load client library, authorize user. *****/
