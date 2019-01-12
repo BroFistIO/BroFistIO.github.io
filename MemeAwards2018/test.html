@@ -535,7 +535,7 @@ window.addEventListener('load', async () => {
             $('#Web3Info h1').text('Waiting for connection...');
             $('#Web3Info p').text('In order to interact with this DApp you need \
             to first approve the Web3 connection request.');
-            $('#Web3Info').append('<img src="metafox.png" alt="Info"/>');
+            $('#Web3Info').append('<img src="../images/metafox.png" alt="Info"/>');
             // Request account access if needed
             await ethereum.enable();
             // Acccounts now exposed
@@ -545,7 +545,7 @@ window.addEventListener('load', async () => {
             $('#Web3Info h1').text('Web3 access denied!');
             $('#Web3Info p').text('In order to interact with this DApp you need \
             to allow Web3 access. Consider refreshing the page and allowing access.');
-            $('#Web3Info img').attr('src','info.png');
+            $('#Web3Info img').attr('src','../images/info.png');
         }
     }
     // Legacy dapp browsers...
@@ -561,7 +561,7 @@ window.addEventListener('load', async () => {
             support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
             in your browser today.');
             $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
-            rel="nofollow"><img src="metamask.png" alt="MetaMask logo"/></a>');
+            rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
     }
 });
 
