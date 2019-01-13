@@ -311,8 +311,3 @@ function checkProgress(){
 	}
 
 }
-
-
-
-
-}
