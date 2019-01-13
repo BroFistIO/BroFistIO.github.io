@@ -501,7 +501,7 @@ function flip(){
 // Load card data & flip 
 async function loadCardData(){
     // Button no longer needed
-    $('#gainAccess').hide();
+    $('#gainAccess, #claimTokenButton').hide();
     try{
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
@@ -560,7 +560,6 @@ function notify(arg){
 function checkSubscription(){
     if(!youtubeSubscription){
         // Not subscribed to PewDiePie...
-        console.log("Not subscribed");
     } else {
         // Subscribed to PewDiePie!
         clearInterval(interval);
