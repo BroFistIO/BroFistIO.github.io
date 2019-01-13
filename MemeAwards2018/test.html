@@ -37,7 +37,7 @@ gtag('config', 'UA-3064259-44');
 <script src="../inc/web3-1.0.0-beta.37.js"></script>
 <style>
 /* Initially hidden */
-#claimTokenButton, .cardWrapper, #Web3Notification, #gainAccess {
+#claimTokenButton, .cardWrapper, #Web3Notification, #gainAccess, #Loading {
     display: none;
 }
 
@@ -272,11 +272,6 @@ gtag('config', 'UA-3064259-44');
 	
 <!-- The DApp -->
 <script>
-$(document).ready(function() {
-$('#Loading').hide();
-// Document ready
-});
-
 let contract;
 var userAccounts;
 var hasClaimed;
@@ -413,7 +408,7 @@ async function initialize() {
 }
 
 // Button to confirm userAccess 
-$('#gainAccess').click(function(){
+$(document).on('click', '#gainAccess', function(){
     $('#Web3Notification, #Web3Notification img').fadeToggle(100);
     if(typeof userAccess === "undefined"){
         console.log("undefined");
@@ -433,13 +428,13 @@ $('#gainAccess').click(function(){
 
 
 // Call handleAuthClick function when user clicks on "Authorize" button.
-$('#confirmYoutubeSubscription').click(function() {
+$(document).on('click', '#confirmYoutubeSubscription', function(){
     handleAuthClick(event);
 }); 
 
 
 // Clicks on claim token button 
-$('#claimTokenButton').click(function() {
+$(document).on('click', '#claimTokenButton', function(){
     // Tell user to confirm 
     $('#Loading').fadeTo(200);
     $('#Loading .info').text('Please confirm this transaction...');
@@ -482,14 +477,8 @@ $('#claimTokenButton').click(function() {
 
 
 // Close button
-$('#closeButton').click(function(){
+$(document).on('click', '#closeButton', function(){
     $('#Web3Notification, #Web3Notification img').fadeToggle(100);
-});
-
-
-// Clickable card 
-$('.cardWrapper').click(function(){
-    flip();
 });
 
 
@@ -535,7 +524,7 @@ function notify(arg){
         see a confirmation popup initially then refreshing the page might\
         help.');
         $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
-        rel="nofollow"><img src="metafox.png" alt="MetaMask logo"/></a>');
+        rel="nofollow"><img src="../images/metafox.png" alt="MetaMask logo"/></a>');
         break;
         
         // No web3
@@ -545,7 +534,7 @@ function notify(arg){
         support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
         in your browser today.');
         $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
-        rel="nofollow"><img src="metamask.png" alt="MetaMask logo"/></a>');
+        rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
         break;
         
         // Denied
@@ -554,7 +543,7 @@ function notify(arg){
         $('#Web3Info p').text('In order to interact with this DApp you need \
         to allow Web3 access. Consider refreshing the page and allowing access.');
         $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
-        rel="nofollow"><img src="metafox.png" alt="MetaMask logo"/></a>');
+        rel="nofollow"><img src="../images/metafox.png" alt="MetaMask logo"/></a>');
         break;
         
     }
