@@ -37,7 +37,7 @@ gtag('config', 'UA-3064259-44');
 <script src="../inc/web3-1.0.0-beta.37.js"></script>
 <style>
 /* Initially hidden */
-#claimTokenButton, .cardWrapper, #Web3Notification, #Loading, #gainAccess {
+#claimTokenButton, .cardWrapper, #Web3Notification, #gainAccess {
     display: none;
 }
 
@@ -272,6 +272,10 @@ gtag('config', 'UA-3064259-44');
 	
 <!-- The DApp -->
 <script>
+$(document).ready(function() {
+	
+$('#Loading').hide();
+
 let contract;
 var userAccounts;
 var hasClaimed;
@@ -592,6 +596,9 @@ function checkUserAccess(){
         $('#claimTokenButton').show();
     }
 }
+
+// Document ready
+});
 </script>
 	
 	
@@ -794,7 +801,7 @@ Otherwise click the button below and we'll do a quick readonly check to confirm 
 
 <!-- The loading screen -->
 <div id="Loading"><div class="lds-ripple"><div></div><div></div></div>
-<p class="info"></p>
+<p class="info">Loading...</p>
 </div>
 
 <!-- The notifications -->
