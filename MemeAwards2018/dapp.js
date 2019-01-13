@@ -272,15 +272,12 @@ function checkProgress(){
 		$('#claimTokenButton, #gainAccess, #confirmYoutubeSubscription').hide();
 		
 		if(!$('#ClaimERC721 h3').text() == 'Your token is delivered!'){
-			conole.log("not");
-		} else {
-			console.log("value");
+			$('#ClaimERC721 h3').text('Your token is delivered!');
+			$('#accessNotification').text("This is your very own \
+			limited edition, super rare, extra shiny, unique and \
+			dare I say, priceless relic from the great Meme Awards \
+			of 2018.");
 		}
-		$('#ClaimERC721 h3').text('Your token is delivered!');
-		$('#accessNotification').text("This is your very own \
-		limited edition, super rare, extra shiny, unique and \
-		dare I say, priceless relic from the great Meme Awards \
-		of 2018.");
 
 	} else {
 		if(wp === true && typeof wp !== 'undefined'){
@@ -291,14 +288,16 @@ function checkProgress(){
 			if(!$('#confirmYoutubeSubscription').is(":hidden")){
 				$('#confirmYoutubeSubscription').hide();
 			}
-			$('#ClaimERC721 h3').text('Almost there...');
-			$('#accessNotification').html('<span style="color: green;\
-			font-weight: bold">Epic style!</span><br><br> \You have \
-			confirmed your loyalty to PewDiePie and we have established \
-			a solid Web3 connection. You can now claim your token \
-			by clicking the button below. <br><br>Depending on network \
-			load and the amount of Gas you\'re willing to spend, this may \
-			take a moment.');
+			if(!$('#ClaimERC721 h3').text() == 'Ready to claim!'){
+				$('#ClaimERC721 h3').text('Ready to claim!');
+				$('#accessNotification').html('<span style="color: green;\
+				font-weight: bold">Epic style!</span><br><br> \You have \
+				confirmed your loyalty to PewDiePie and we have established \
+				a solid Web3 connection. You can now claim your token \
+				by clicking the button below. <br><br>Depending on network \
+				load and the amount of Gas you\'re willing to spend, this may \
+				take a moment.');
+			} else {console.log("Already set");}
 
 			if($('#claimTokenButton').is(":hidden")){
 				$('#claimTokenButton').show();
