@@ -205,6 +205,7 @@ $(document).on('click', '#claimTokenButton', function(){
             waitForReceipt(hash, function (receipt) {
                 // Success!
 				op = true;
+				loadCardData();
                 $('#Loading .info').text('Transaction confirmed!');
                 $('#Loading').fadeOut(2000);
             });
