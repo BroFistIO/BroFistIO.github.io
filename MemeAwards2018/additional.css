@@ -14,12 +14,6 @@ border: 0;
 .fa-check-circle-o{
   color: green
 }
-.noscroll{
-  overflow: hidden
-}
-#Web3Notification{
-  overflow-y: scroll
-}
 #Web3Notification, #Loading {
 position: fixed;
 top: 0;
