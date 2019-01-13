@@ -6,6 +6,9 @@ var web3Connected;
 var yp; // Youtube progress
 var wp; // Web3 progress
 var op; // Overall progress
+Boolean(yp);
+Boolean(wp);
+Boolean(op);
 var progress = setInterval(checkProgress, 100);
 
 window.addEventListener('load', async () => {
