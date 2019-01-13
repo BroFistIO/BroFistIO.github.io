@@ -5,7 +5,7 @@ var youtubeSubscription = false;
 var userAccess;
 
 // Check for subscription every 1s
-var interval = setInterval(checkProgress, 1000);
+var interval = setInterval(checkProgress, 100);
 
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
@@ -286,7 +286,11 @@ function checkProgress(){
 
   if(!youtubeSubscription){
     if(!$('#confirmYoutubeSubscription').css('display') == 'none'){
-       $('#accessNotification').html('Before you can claim your meme crypto collectible you need to confirm that you are indeed subscribed to PewDiePie. If you\'re not yet a subscriber, you can subscribe to his channel <a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>.   Otherwise click the button below and we\'ll do a quick read-only check on your Youtube account to confirm your subscription.');
+       $('#accessNotification').html('Before you can claim your meme crypto collectible you need\
+to confirm that you are indeed subscribed to PewDiePie. If you\'re not yet a subscriber, you can\
+subscribe to his channel\
+<a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>.\
+Otherwise click the button below and we\'ll do a quick read-only check on your Youtube account to confirm your subscription.');
   }
   // Not subscribed
 
@@ -298,7 +302,7 @@ function checkProgress(){
     if($('#gainAccess').css('display') == 'none'){
       // Show hidden
       $('#gainAccess').fadeIn(100);
-      $('#accessNotification').text("Great! Your subscription is valid.\
+      $('#accessNotification').html("Great! Your subscription is valid.<br><br>\
 Now all that's left to do is connect your Web3 provider and you\
 will be able to claim your crypto collectible ;)");
     }
