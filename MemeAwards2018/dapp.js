@@ -298,7 +298,7 @@ function checkProgress(){
 			}
 			if($('#ClaimERC721 h3').text() !== 'Ready to claim!'){
 				$('#ClaimERC721 h3').text('Ready to claim!');
-				$('#accessNotification').html('You can now claim your token \
+				$('#accessNotification').html('<br>You can now claim your token \
 				by clicking the button below. <br><br>Depending on network \
 				load and the amount of Gas you\'re willing to spend, this may \
 				take a moment or two.');
@@ -318,7 +318,7 @@ function checkProgress(){
 				}
 				if($('#ClaimERC721 h3').text() !== 'Almost there...'){
 					$('#ClaimERC721 h3').text('Almost there...');
-					$('#accessNotification').html('Now all that\'s left to do is connect your \
+					$('#accessNotification').html('<br>Now all that\'s left to do is connect your \
 					Web3 provider (MetaMask or other) and find out which card \
 					you\'ll get!');
 					$('#ClaimERC721 h3').after('<span class="icon fa-check-circle-o"></span> \
