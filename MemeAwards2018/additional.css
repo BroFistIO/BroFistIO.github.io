@@ -11,6 +11,9 @@ button::-moz-focus-inner,
 img::-moz-focus-inner{
 border: 0;
 }
+.fa-check-circle-o{
+  color: green
+}
 .noscroll{
   overflow: hidden
 }
