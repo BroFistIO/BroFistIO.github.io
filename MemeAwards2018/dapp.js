@@ -144,7 +144,6 @@ async function initialize() {
     
         if(hasClaimed && typeof hasClaimed !== 'undefined'){
             // Overall progress 
-            op = true;
 			loadCardData();
         }
     
@@ -204,7 +203,6 @@ $(document).on('click', '#claimTokenButton', function(){
             $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
             waitForReceipt(hash, function (receipt) {
                 // Success!
-				op = true;
 				loadCardData();
                 $('#Loading .info').text('Transaction confirmed!');
                 $('#Loading').fadeOut(2000);
@@ -232,6 +230,7 @@ function flip(){
 
 // Load card data & flip 
 async function loadCardData(){
+	op = true;
     // Buttons no longer needed
     $('#confirmYoutubeSubscription, #gainAccess, #claimTokenButton').hide();
     try{
