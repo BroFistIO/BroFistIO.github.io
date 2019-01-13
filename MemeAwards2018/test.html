@@ -430,7 +430,7 @@ $(document).on('click', '#gainAccess', function(){
 
 
 // Call handleAuthClick function when user clicks on "Authorize" button.
-$(document).on('click', '#confirmYoutubeSubscription', function(){
+$(document).on('click', '#confirmYoutubeSubscription', function(event){ //give event for FireFox
     handleAuthClick(event);
 }); 
 
