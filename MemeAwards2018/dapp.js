@@ -339,7 +339,7 @@ function checkProgress(){
 				load and the amount of Gas you\'re willing to spend, this may \
 				take a moment or two.');
 				$('#ClaimERC721 h3').after('<span class="icon fa-check-circle-o"></span> \
-				Web3 connection established.<br>');
+				Web3 connection established<br>');
 				
 				wp_not_set = false;
 			}
@@ -360,7 +360,7 @@ function checkProgress(){
 					Web3 provider (MetaMask or other) and find out which card \
 					you\'ll get!');
 					$('#ClaimERC721 h3').after('<span class="icon fa-check-circle-o"></span> \
-					Great! Your subscription is valid.<br>');
+					Great! Your subscription is valid<br>');
 					
 					yp_not_set = false;
 				}
