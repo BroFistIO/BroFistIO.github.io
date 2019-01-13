@@ -237,21 +237,20 @@ async function loadCardData(){
     $('#confirmYoutubeSubscription, #gainAccess, #claimTokenButton').hide();
     try{
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
+		let ownedTokensAmount = await contract.methods.getIndividualCount(ownedTokens[0][0]).call();
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
         $.getJSON(ownedTokensUri, function(data) {
             $("#cardTitle").text(data.name);
             $("#cardDescription").text(data.description);
             $("#cardImage").attr("src",data.image);
-			ownedTokensTemplateId = data.template;
 			yourToken = data.name;
-			ownedTokensAmount = contract.methods.getIndividualCount(ownedTokensTemplateId).call();
         })
         $('.cardWrapper').fadeIn(200);
     } catch (error) {
         console.error(error);
     } finally {
         flip();
-		if(typeof ownedTokensTemplateId !== 'undefined' && typeof ownedTokensAmount !== 'undefined'){
+		if(typeof ownedTokensAmount !== 'undefined'){
 			$('#tokenStats').append(' The token '+yourToken+' has been minted '+ownedTokensAmount+' times.');
 		}
     }
