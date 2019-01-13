@@ -266,7 +266,7 @@ function notify(arg){
 
 function checkProgress(){
 	
-	if(op = true && typeof op !== 'undefined'){
+	if(op && typeof op !== 'undefined'){
 		// All the steps are completed!
 		clearInterval(progress);
 		$('#claimTokenButton, #gainAccess, #confirmYoutubeSubscription').hide();
@@ -278,7 +278,7 @@ function checkProgress(){
 		of 2018.");
 
 	} else {
-		if(wp = true && typeof wp !== 'undefined'){
+		if(wp && typeof wp !== 'undefined'){
 			// Web3 progress
 			$('#gainAccess').hide();
 			$('#confirmYoutubeSubscription').hide();
@@ -293,7 +293,7 @@ function checkProgress(){
 
 			$('#claimTokenButton').toggle();
 		} else {
-			if(yp = true && typeof yp !== 'undefined'){
+			if(yp && typeof yp !== 'undefined'){
 				// Youtube confirmed!
 				$('#confirmYoutubeSubscription').toggle();
 				$('#accessNotification').html('<span style="color: orange; \
