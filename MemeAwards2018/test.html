@@ -138,26 +138,36 @@ clearInterval(x);
 <strong>rare items</strong> that you can only ever claim during the first 30 days of the airdrop event.
 <br><br>
 <img class="image fit" src="stack-of-cards.png" alt="PewDiePie and Memes Related Trading Cards">
-
-After this period the <strong>total supply</strong> of every token in existence will become final meaning nobody can generate more than what's 
-already distributed. This makes these meme tokens effectively <strong>scarce and potentially valuable</strong>. 
+A new token is born every time someone claims it. There is no initial supply and there is no way to know how many tokens will 
+be created. 
+<br><br>
+The only thing that is certain is that when the airdrop event ends the <strong>total supply</strong> of every token in existence 
+will become final. Nobody will be able to create any more tokens after that. This makes these meme tokens effectively 
+<strong>scarce</strong>.
 <br><br>
 Token ownership is tracked on the Ethereum blockchain so you can buy, sell and trade these meme tokens any time you want. 
-Theoretically the value of these tokens can become higher and higher over time.
+Theoretically the value of these tokens can become higher and higher over time, but obviously we cannot guarantee this.
 <br><br>
-<strong>Please note</strong> that these tokens are free to claim during the airdrop event provided that you have enough ETH in your Ethereum wallet 
-to cover the <a href="https://brofistcoin.io/faq/#MinersFee" target="_blank">transaction fee</a> 
-required by the Ethereum network to transfer the tokens from our smart contract to your wallet. Based on our tests 
-this should cost you no more than a couple of cents!
+<strong>Please note</strong> that these tokens are free to claim during the airdrop event provided that you have enough ETH in your 
+Ethereum wallet to cover the <a href="https://brofistcoin.io/faq/#MinersFee" target="_blank">transaction fee</a> 
+required by the Ethereum network to transfer the tokens from our smart contract to your wallet.
 <br><br>
-Although not related to our main project, the Meme Trading Cards game, these tokens are <strong>used in a small minigame</strong> we are working on.
+Unlike most other crypto projects, BrofistCoin is not funded and we have no investors (and we can't have any investors because, well, 
+we're using PewDiePie's name and trademark after all). This means we do everything here in 
+our spare time. Therefore we simply cannot afford to pay for the transaction fees ourselves because cumulatively it would be 
+too much. However based on our tests the transaction fee should cost you individually no more than a few cents!
+<br><br>
+Although not related to our main project, the Meme Trading Cards game, these tokens will be <strong>used in a small minigame</strong> 
+we are working on.
 It's almost complete, but we decided to postpone development until enough people have claimed their free tokens first to see whether 
 people are even interested in what we're doing or not. 
 <br><br>
-In said minigame, your 
-meme token will act as your avatar that you can <strong>put to work and earn BrofistCoin</strong> for you. Other players can copystrike your avatar while 
-it's working and claim all the revenue. Oof! There are of course other aspects to the game that make it really <strong>competitive and fun</strong>, but we'll 
-release more information about it after the token airdrop event. Stay tuned and share this page with all your friends and family!!
+In the minigame, your 
+meme token will act as your avatar that you can <strong>put to work to earn BrofistCoin</strong> for you. Other players can 
+copystrike your avatar while 
+it's working and claim all the revenue. Oof! There are of course other aspects to the game that make it really 
+<strong>competitive and fun</strong>, but we'll 
+release more information on this after the token airdrop event. Stay tuned and share this page with all your friends and family!
 </p>
 </div>
 
@@ -173,16 +183,18 @@ release more information about it after the token airdrop event. Stay tuned and 
 <h3>What are the requirements?</h3>
 
 <p>You can claim a free ERC721 meme token provided that you are <strong>subscribed to PewDiePie</strong>, allow 
-<strong>MetaMask</strong> or other Web3 enabled browser to <strong>connect to our dapp</strong> and have enough ETH in your balance to cover 
-the network <strong>transaction fee</strong> (Gas) it takes to confirm the transaction.
+<strong>MetaMask</strong> or other Web3 enabled browser to <strong>connect to our dapp</strong> and have enough ETH in your balance
+to cover the network <strong>transaction fee</strong> (Gas) it takes to confirm the transaction.
 </p>
 
-<p>NB! One address can <strong>claim only once</strong> from the smart contract. If you attempt to claim more than one token,
-the transaction will fail and your Gas will be wasted!
+<p>One address can <strong>claim only once</strong> from the smart contract. If you attempt to claim more than one token,
+the transaction will fail and your Gas will be wasted! It doesn't matter if you claim here on this page or call the function 
+externally, the transaction will always fail if you have already claimed. Note that modern Web3 interfaces like MetaMask will warn you 
+beforehand if a transaction is bound to fail.
 <br><br>
-Also note that the token you receive is <strong>randomly chosen</strong> from the memes that PewDiePie announced. In other 
-words you have 1 in 10 (there are 10 memes) chance to get any specific token. Don't come crying to me if you get a 
-Fortnite card!
+Also note that the token you receive will be <strong>randomly chosen</strong> from the memes that PewDiePie announced in
+the Meme Awards video. In other words you have 1 in 10 (there are 10 memes) chance to get any specific token. You better like the 
+card you get!
 </p>
 </div>
 
@@ -259,7 +271,8 @@ Fortnite card!
 </p>
   
 <p>If you're having trouble claiming the token then you can also call the function <code>claimMeme()</code> externally 
-with no arguments. The smart contract can be found 
+with no arguments. If the <code>msg.sender</code> has not claimed yet, the token will get <code>minted</code> to 
+the <code>msg.sender</code>. The smart contract behind all this can be found 
 <a href="https://ropsten.etherscan.io/address/0xad3489875209933f8814d857a0a1cd2d828d310c" target="_blank" rel="nofollow">here</a>.
 </p>
 
