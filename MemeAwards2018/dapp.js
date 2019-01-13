@@ -271,7 +271,7 @@ function checkProgress(){
 		clearInterval(progress);
 		$('#claimTokenButton, #gainAccess, #confirmYoutubeSubscription').hide();
 		
-		if(!$('#ClaimERC721 h3').text() == 'Your token is delivered!'){
+		if($('#ClaimERC721 h3').text() !== 'Your token is delivered!'){
 			$('#ClaimERC721 h3').text('Your token is delivered!');
 			$('#accessNotification').text("This is your very own \
 			limited edition, super rare, extra shiny, unique and \
@@ -288,7 +288,7 @@ function checkProgress(){
 			if(!$('#confirmYoutubeSubscription').is(":hidden")){
 				$('#confirmYoutubeSubscription').hide();
 			}
-			if(!$('#ClaimERC721 h3').text() == 'Ready to claim!'){
+			if($('#ClaimERC721 h3').text() !== 'Ready to claim!'){
 				$('#ClaimERC721 h3').text('Ready to claim!');
 				$('#accessNotification').html('<span style="color: green;\
 				font-weight: bold">Epic style!</span><br><br> \You have \
@@ -308,7 +308,7 @@ function checkProgress(){
 				if(!$('#confirmYoutubeSubscription').is(":hidden")){
 					$('#confirmYoutubeSubscription').hide();
 				}
-				if(!$('#ClaimERC721 h3').text() == 'Almost there...'){
+				if($('#ClaimERC721 h3').text() !== 'Almost there...'){
 					$('#ClaimERC721 h3').text('Almost there...');
 					$('#accessNotification').html('Great! Your subscription is \
 					valid.<br><br> \Now all that\'s left to do is connect your \
@@ -321,7 +321,7 @@ function checkProgress(){
 			} else {
 				
 				// No Youtube confirmation...
-				if(!$('#ClaimERC721 h3').text() == 'Claim Meme Awards 2018 crypto collectible!'){
+				if($('#ClaimERC721 h3').text() !== 'Claim Meme Awards 2018 crypto collectible!'){
 					$('#ClaimERC721 h3').text('Claim Meme Awards 2018 crypto collectible!');
 					$('#accessNotification').html('Before you can claim your meme \
 					crypto collectible you need to confirm that you are indeed \
