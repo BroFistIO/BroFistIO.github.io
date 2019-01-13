@@ -2,8 +2,10 @@ var contract;
 var userAccounts;
 var hasClaimed;
 
-var youtubeSubscription;
 var web3Connected;
+var yp; // Youtube progress
+var wp; // Web3 progress
+var op; // Overall progress
 var progress = setInterval(checkProgress, 100);
 
 window.addEventListener('load', async () => {
@@ -36,7 +38,7 @@ window.addEventListener('load', async () => {
 
 // Initialize contract instance, load user data
 async function initialize() {
-    web3Connected = true;
+    wp = true;
 	if(('#Web3Notification').css('display') == 'none')){
 		$('#Web3Notification').hide();
 	}
@@ -120,8 +122,8 @@ async function initialize() {
     hasClaimed = await contract.methods.hasClaimed(userAccounts[0]).call();
     
         if(hasClaimed){
-            // Load the card 
-            loadCardData();
+            // Overall progress 
+            op = true;
         } else {
             // idk yet
         }
@@ -181,6 +183,7 @@ $(document).on('click', '#claimTokenButton', function(){
             $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
             waitForReceipt(hash, function (receipt) {
                 // Success!
+				op = true;
                 $('#claimTokenButton').hide();
                 setTimeout(loadCardData, 2000); //Bigger than waitForReceipt
                 $('#Loading .info').text('Transaction confirmed!');
@@ -265,49 +268,60 @@ function notify(arg){
  
 }
 
+
+
 function checkProgress(){
+	
+	if(op = true){
+		// All the steps are completed!
+		clearInterval(progress);
+		
+		$('#ClaimERC721 h3').text('Your token is delivered!');
+		$('#accessNotification').text("This is your very own \
+		limited edition, super rare, extra shiny, unique and \
+		dare I say, priceless relic from the great Meme Awards \
+		of 2018.");
+		
+		loadCardData();
+		
+	} else {
+		if(wp = true){
+			// Web3 progress
+			$('#gainAccess').hide();
+			
+			$('#ClaimERC721 h3').text('Almost there...');
+			$('#accessNotification').html('<span style="color: green;\
+			font-weight: bold">Epic style!</span><br><br> \You have \
+			confirmed your loyalty to PewDiePie and we have established \
+			a solid Web3 connection. You can now claim your token \
+			by clicking the button below. <br><br>Depending on network \
+			load and the amount of Gas you\'re willing to spend, this may \
+			take a moment.');
 
-if(!youtubeSubscription){
-if(!$('#confirmYoutubeSubscription').css('display') == 'none'){
-$('#accessNotification').html('Before you can claim your meme crypto collectible you need\
-to confirm that you are indeed subscribed to PewDiePie. If you\'re not yet a subscriber, you can\
-subscribe to his channel\
-<a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>.\
-Otherwise click the button below and we\'ll do a quick read-only check on your Youtube account to confirm your subscription.');
-}
-// Not subscribed
-
-} else {
-// Subscribed
-$('#confirmYoutubeSubscription').hide();
-if(!web3Connected){
-// No access
-if($('#gainAccess').css('display') == 'none'){
-// Show hidden
-$('#gainAccess').fadeIn(100);
-$('#accessNotification').html('<span style="color: orange; font-weight: bold">Great!</span><br><br> Your subscription is valid. \
-Now all that\'s left to do is connect your Web3 provider (MetaMask or other) and find out which card you\'ll get!');
-}
-} else {
-// User has access
-if(!$('#gainAccess').css('display') == 'none'){
-// Hide visible
-$('#gainAccess').hide();
-$('#accessNotification').html('<span style="color: green; font-weight: bold">Epic style!</span><br><br> \
-You have confirmed your loyalty to PewDiePie and we have established a solid Web3 connection. You can now claim your token \
-by clicking the button below. <br><br>Depending on network load and the amount of Gas you\'re willing to spend, this may \
-take a moment.');
-// Show claim button
-$('#claimTokenButton').show();
-clearInterval(progress);
-} else {
-// gainAccess hidden 
-$('#ClaimERC721 h3').text('Your token is delivered!');
-$('#accessNotification').text("This is your very own limited edition, super rare, extra shiny, unique and dare I say, priceless relic \
-from the great Meme Awards 2018.");
-}
-
-}
-}
-
+			$('#claimTokenButton').show();
+		} else {
+			if(yp = true){
+				// Youtube progress
+				$('#confirmYoutubeSubscription').hide();
+				$('#accessNotification').html('<span style="color: orange; \
+				font-weight: bold">Great!</span><br><br> Your subscription is \
+				valid.<br><br> \Now all that\'s left to do is connect your \
+				Web3 provider (MetaMask or other) and find out which card \
+				you\'ll get!');
+				
+				$('#gainAccess').show();
+			} else {
+				// No Youtube confirmation...
+				$('#accessNotification').html('Before you can claim your meme \
+				crypto collectible you need to confirm that you are indeed \
+				subscribed to PewDiePie. If you\'re not yet a subscriber, you can \
+				subscribe to his channel \
+				<a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>. \
+				Otherwise click the button below and we\'ll do a quick read-only \
+				check on your Youtube account to confirm your subscription.');
+				
+				$('#confirmYoutubeSubscription').show();
+			}
+		}
+	}
 }
