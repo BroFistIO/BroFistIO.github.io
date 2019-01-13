@@ -237,7 +237,7 @@ async function loadCardData(){
     $('#confirmYoutubeSubscription, #gainAccess, #claimTokenButton').hide();
     try{
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
-		let ownedTokensAmount = await contract.methods.getIndividualCount(ownedTokens[0][0]).call();
+		var ownedTokensAmount = await contract.methods.getIndividualCount(ownedTokens[0][0]).call();
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
         $.getJSON(ownedTokensUri, function(data) {
             $("#cardTitle").text(data.name);
@@ -316,7 +316,7 @@ function checkProgress(){
 		}
 		if(op_not_set){
 			$('#ClaimERC721 h3').text('Your token is delivered!');
-			$('#accessNotification').text("<br>This is your very own \
+			$('#accessNotification').html("<br>This is your very own \
 			limited edition, super rare, extra shiny, unique and \
 			dare I say, priceless relic from the great Meme Awards \
 			of 2018.");
