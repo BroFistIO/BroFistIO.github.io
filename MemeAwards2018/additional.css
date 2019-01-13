@@ -56,6 +56,7 @@ padding: 2em 0 2em 0;
 }
 #Web3Info a {
 display: block;
+text-decoration: none;
 }
 #Web3Info img {
 width: 100%;
