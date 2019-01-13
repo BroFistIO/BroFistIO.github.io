@@ -37,7 +37,7 @@ gtag('config', 'UA-3064259-44');
 <script src="../inc/web3-1.0.0-beta.37.js"></script>
 <style>
 /* Initially hidden */
-#claimTokenButton, .cardWrapper, #Web3Notification, #Loading {
+#claimTokenButton, .cardWrapper, #Web3Notification, #Loading, #gainAccess {
     display: none;
 }
 
@@ -53,6 +53,16 @@ gtag('config', 'UA-3064259-44');
     width: 100%;
     height: 100%;
     z-index: 999;
+}
+#closeButton{
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    line-height: 32px;
+    text-align: center;
+    border: 1px solid #ccc;
 }
 #Web3Info {
     width: 100%;
@@ -788,11 +798,13 @@ Otherwise click the button below and we'll do a quick readonly check to confirm 
 
 <!-- The notifications -->
 <div id="Web3Notification">
+    <div id="closeButton"></div>
     <div id="Web3Info">
-    <h1>One moment please</h1>
-    <p>Looking for Web3 providers...</p>
+    <h1></h1>
+    <p></p>
     </div>
 </div>
+
     
      </section>
 	
