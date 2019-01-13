@@ -9,6 +9,9 @@ border: 0;
 .noscroll{
   overflow: hidden
 }
+#Web3Notification{
+  overflow-y: scroll
+}
 #Web3Notification, #Loading {
 position: fixed;
 top: 0;
