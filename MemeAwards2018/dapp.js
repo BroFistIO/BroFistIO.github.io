@@ -302,7 +302,7 @@ function checkProgress(){
 				by clicking the button below. <br><br>Depending on network \
 				load and the amount of Gas you\'re willing to spend, this may \
 				take a moment or two.');
-				$('#ClaimERC721 h3').append('<span class="icon fa-check-circle-o"></span> \
+				$('#ClaimERC721 h3').after('<span class="icon fa-check-circle-o"></span> \
 				Web3 connection established.<br>');
 			}
 			if($('#claimTokenButton').is(":hidden")){
@@ -321,7 +321,7 @@ function checkProgress(){
 					$('#accessNotification').html('Now all that\'s left to do is connect your \
 					Web3 provider (MetaMask or other) and find out which card \
 					you\'ll get!');
-					$('#ClaimERC721 h3').append('<span class="icon fa-check-circle-o"></span> \
+					$('#ClaimERC721 h3').after('<span class="icon fa-check-circle-o"></span> \
 					Great! Your subscription is valid.<br>');
 				}
 				if($('#gainAccess').is(":hidden")){
