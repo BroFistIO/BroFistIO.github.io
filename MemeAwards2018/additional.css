@@ -230,17 +230,3 @@ text-transform: uppercase;
 display: block;
 font-size: 1.5em;
 }
-
-
-/* https://stackoverflow.com/questions/9280258/prevent-body-scrolling-but-allow-overlay-scrolling */
-.noscroll { 
-  overflow: hidden;
-}
-
-.overlay { 
-position: fixed; 
-overflow-y: scroll;
-top: 0; right: 0; bottom: 0; left: 0; }
-
-[aria-hidden="true"]  { display: none; }
-[aria-hidden="false"] { display: block; }
