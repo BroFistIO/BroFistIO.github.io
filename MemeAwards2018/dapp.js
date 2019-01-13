@@ -290,15 +290,13 @@ function checkProgress(){
 			}
 			if($('#ClaimERC721 h3').text() !== 'Ready to claim!'){
 				$('#ClaimERC721 h3').text('Ready to claim!');
-				$('#accessNotification').html('<span style="color: green;\
-				font-weight: bold">Epic style!</span><br><br> \You have \
-				confirmed your loyalty to PewDiePie and we have established \
-				a solid Web3 connection. You can now claim your token \
+				$('#accessNotification').html('You can now claim your token \
 				by clicking the button below. <br><br>Depending on network \
 				load and the amount of Gas you\'re willing to spend, this may \
 				take a moment.');
-			} else {console.log("Already set");}
-
+				$('#ClaimERC721 h3').append('<span class="icon fa-check-circle-o"></span> \
+				Web3 connection established.<br>');
+			}
 			if($('#claimTokenButton').is(":hidden")){
 				$('#claimTokenButton').show();
 			}
@@ -310,16 +308,16 @@ function checkProgress(){
 				}
 				if($('#ClaimERC721 h3').text() !== 'Almost there...'){
 					$('#ClaimERC721 h3').text('Almost there...');
-					$('#accessNotification').html('Great! Your subscription is \
-					valid.<br><br> \Now all that\'s left to do is connect your \
+					$('#accessNotification').html('Now all that\'s left to do is connect your \
 					Web3 provider (MetaMask or other) and find out which card \
 					you\'ll get!');
+					$('#ClaimERC721 h3').append('<span class="icon fa-check-circle-o"></span> \
+					Great! Your subscription is valid.<br>');
 				}
 				if($('#gainAccess').is(":hidden")){
 					$('#gainAccess').show();
 				}
 			} else {
-				
 				// No Youtube confirmation...
 				if($('#ClaimERC721 h3').text() !== 'Claim Meme Awards 2018 crypto collectible!'){
 					$('#ClaimERC721 h3').text('Claim Meme Awards 2018 crypto collectible!');
