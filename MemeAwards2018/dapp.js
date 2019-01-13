@@ -3,9 +3,9 @@ var userAccounts;
 var hasClaimed;
 
 var web3Connected;
-var yp = false; // Youtube progress
-var wp = false; // Web3 progress
-var op = false; // Overall progress
+var yp; // Youtube progress
+var wp; // Web3 progress
+var op; // Overall progress
 var progress = setInterval(checkProgress, 100);
 
 window.addEventListener('load', async () => {
@@ -118,12 +118,10 @@ async function initialize() {
     userAccounts = await web3.eth.getAccounts();
     hasClaimed = await contract.methods.hasClaimed(userAccounts[0]).call();
     
-        if(hasClaimed){
+        if(hasClaimed && typeof hasClaimed !== 'undefined'){
             // Overall progress 
             op = true;
 			loadCardData();
-        } else {
-            // idk yet
         }
     
     } catch (error) {
@@ -268,7 +266,7 @@ function notify(arg){
 
 function checkProgress(){
 	
-	if(op = true){
+	if(op = true && typeof op !== 'undefined'){
 		// All the steps are completed!
 		clearInterval(progress);
 		$('#claimTokenButton, #gainAccess, #confirmYoutubeSubscription').hide();
@@ -280,7 +278,7 @@ function checkProgress(){
 		of 2018.");
 
 	} else {
-		if(wp = true){
+		if(wp = true && typeof wp !== 'undefined'){
 			// Web3 progress
 			$('#gainAccess').hide();
 			$('#confirmYoutubeSubscription').hide();
@@ -295,7 +293,7 @@ function checkProgress(){
 
 			$('#claimTokenButton').toggle();
 		} else {
-			if(yp = true){
+			if(yp = true && typeof yp !== 'undefined'){
 				// Youtube confirmed!
 				$('#confirmYoutubeSubscription').toggle();
 				$('#accessNotification').html('<span style="color: orange; \
