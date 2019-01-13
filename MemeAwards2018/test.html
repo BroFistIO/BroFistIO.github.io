@@ -280,6 +280,7 @@ var userAccess;
 
 // Check for subscription every 1s
 var interval = setInterval(checkSubscription, 1000);
+var accessInterval;
 
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
@@ -566,7 +567,7 @@ function checkSubscription(){
         $('#confirmYoutubeSubscription').hide();
         
         // Start new...
-        var accessInterval = setInterval(checkUserAccess, 1000);
+        accessInterval = setInterval(checkUserAccess, 1000);
     }
 }
 
