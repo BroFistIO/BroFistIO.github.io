@@ -280,34 +280,38 @@ function notify(arg){
 
 function checkProgress(){
 
-	if(!youtubeSubscription){
-	// Not subscribed
-	} else {
-	// Subscribed
-	$('#confirmYoutubeSubscription').hide();
-	if(!userAccess){
-	// No access
-	if($('#gainAccess').css('display') == 'none'){
-	// Show hidden
-	$('#gainAccess').fadeIn(100);
-	$('#accessNotification').text("Great! Your subscription is valid.\
-	Now all that's left to do is connect your Web3 provider and you\
-	will be able to claim your crypto collectible ;)");
-	}
-	} else {
-	// User has access
-	if(!$('#gainAccess').css('display') == 'none'){
-	// Hide visible
-	$('#gainAccess').hide();
-	$('#accessNotification').text("Epic style! You have confirmed your subscription to\
-	PewDiePie and we have established a solid Web3 connection. You're free to claim\
-	your very own, super rare, Meme Awards 2018 limited edition shiny and fabulous\
-	ERC721 cryptocurrency token.");
-	}
-	// Show claim button
-	$('#claimTokenButton').show();
-	clearInterval(interval);
-	}
-	}
+  if(!youtubeSubscription){
+    if(!$('#confirmYoutubeSubscription').css('display') == 'none'){
+       $('#accessNotification').html('Before you can claim your meme crypto collectible you need to confirm that you are indeed subscribed to PewDiePie. If you\'re not yet a subscriber, you can subscribe to his channel <a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>.   Otherwise click the button below and we\'ll do a quick read-only check on your Youtube account to confirm your subscription.');
+  }
+  // Not subscribed
+
+} else {
+  // Subscribed
+  $('#confirmYoutubeSubscription').hide();
+  if(!userAccess){
+    // No access
+    if($('#gainAccess').css('display') == 'none'){
+      // Show hidden
+      $('#gainAccess').fadeIn(100);
+      $('#accessNotification').text("Great! Your subscription is valid.\
+Now all that's left to do is connect your Web3 provider and you\
+will be able to claim your crypto collectible ;)");
+    }
+  } else {
+    // User has access
+    if(!$('#gainAccess').css('display') == 'none'){
+      // Hide visible
+      $('#gainAccess').hide();
+      $('#accessNotification').text("Epic style! You have confirmed your subscription to\
+PewDiePie and we have established a solid Web3 connection. You're free to claim\
+your very own, super rare, Meme Awards 2018 limited edition shiny and fabulous\
+ERC721 cryptocurrency token.");
+    }
+    // Show claim button
+    $('#claimTokenButton').show();
+    clearInterval(interval);
+  }
+}
 
 }
