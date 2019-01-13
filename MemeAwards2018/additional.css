@@ -6,6 +6,9 @@ button::-moz-focus-inner,
 img::-moz-focus-inner{
 border: 0;
 }
+.noscroll{
+  overflow: hidden
+}
 #Web3Notification, #Loading {
 position: fixed;
 top: 0;
