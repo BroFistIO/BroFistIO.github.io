@@ -80,7 +80,8 @@
   function executeRequest(request) {
     request.execute(function(response) {
         if(response.code !== 401 && response.code !== 400 && response.items[0]) {
-          youtubeSubscription = true;
+          // For progress interval 
+          yp = true;
         }
       console.log(response);
     });
