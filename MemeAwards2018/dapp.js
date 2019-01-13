@@ -292,7 +292,7 @@ function checkProgress(){
 	$('#gainAccess').fadeIn(100);
 	$('#accessNotification').text("Great! Your subscription is valid.\
 	Now all that's left to do is connect your Web3 provider and you\
-	will be able to claim your crypto collectible ;)").fadeIn(100);
+	will be able to claim your crypto collectible ;)");
 	}
 	} else {
 	// User has access
@@ -302,7 +302,7 @@ function checkProgress(){
 	$('#accessNotification').text("Epic style! You have confirmed your subscription to\
 	PewDiePie and we have established a solid Web3 connection. You're free to claim\
 	your very own, super rare, Meme Awards 2018 limited edition shiny and fabulous\
-	ERC721 cryptocurrency token.").fadeIn(100);
+	ERC721 cryptocurrency token.");
 	}
 	// Show claim button
 	$('#claimTokenButton').show();
