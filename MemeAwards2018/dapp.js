@@ -152,7 +152,7 @@ async function initialize() {
         console.error(error);
     } finally {
         $('#Loading').fadeOut(200);
-		$('#tokenStats').html('There are currently <strong>'+totalSupply+'</strong> tokens in existence.');
+		$('#tokenStats').html('There are currently a total of <strong>'+totalSupply+'</strong> tokens in existence.');
     }
 }
 
@@ -248,7 +248,7 @@ async function loadCardData(){
     } finally {
         flip();
 		if(typeof ownedTokensAmount !== 'undefined'){
-			$('#tokenStats').append(' The token <strong>'+$("#cardTitle").text()+'</strong> \
+			$('#tokenStats').append(' Your token \
 			has been minted <strong>'+ownedTokensAmount+'</strong> times.');
 		}
     }
