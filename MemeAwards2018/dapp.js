@@ -27,7 +27,7 @@ window.addEventListener('load', async () => {
     else if (window.web3) {
         window.web3 = new Web3(web3.currentProvider);
         // Acccounts always exposed
-        userAccess = true;
+        initialize();
     }
     // Non-dapp browsers...
     else {
@@ -38,7 +38,7 @@ window.addEventListener('load', async () => {
 // Initialize contract instance, load user data
 async function initialize() {
     userAccess = true;
-    $('#Web3Notification, #gainAccess').hide();
+    $('#Web3Notification).hide();
     $('#Loading').show();
     $('#Loading .info').text('Loading DApp');
     try {
@@ -136,18 +136,14 @@ async function initialize() {
 $(document).on('click', '#gainAccess', function(){
     $('#Web3Notification, #Web3Notification img').fadeToggle(100);
     if(typeof userAccess === "undefined"){
-        console.log("undefined");
         if(window.ethereum){
-            console.log("web3");
             notify(0);
         } else {
-            console.log("not web3");
             notify(1);
         }
     }
     if(userAccess = false){
         notify(2);
-        console.log("user access false");
     }
 });
 
@@ -161,7 +157,7 @@ $(document).on('click', '#confirmYoutubeSubscription', function(event){
 // Clicks on claim token button 
 $(document).on('click', '#claimTokenButton', function(){
     // Tell user to confirm 
-    $('#Loading').fadeTo(200);
+    $('#Loading').fadeTo(200, 1);
     $('#Loading .info').text('Please confirm this transaction...');
     function waitForReceipt(hash, cb) {
       web3.eth.getTransactionReceipt(hash, function (err, receipt) {
@@ -184,7 +180,7 @@ $(document).on('click', '#claimTokenButton', function(){
     contract.methods.claimMeme().send({from: userAccounts[0]},
     function(error,hash){
         if(!error){
-		$('#Loading').fadeIn(200);
+	$('#Loading').fadeTo(200, 1);
             $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
             waitForReceipt(hash, function (receipt) {
                 // Success! Transaction confirmed 
@@ -194,7 +190,7 @@ $(document).on('click', '#claimTokenButton', function(){
                 $('#Loading').fadeOut(2000);
             });
         } else {
-		$('#Loading').fadeIn(200);
+		$('#Loading').fadeTo(200, 1);
             $('#Loading .info').text('Error. Transaction rejected?');
             $('#Loading').fadeOut(2000);
             console.log(error);
