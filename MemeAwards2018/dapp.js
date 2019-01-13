@@ -39,9 +39,6 @@ window.addEventListener('load', async () => {
 // Initialize contract instance, load user data
 async function initialize() {
     wp = true;
-	if(('#Web3Notification').css('display') == 'none')){
-		$('#Web3Notification').hide();
-	}
     $('#Loading').show();
     $('#Loading .info').text('Loading DApp');
     try {
@@ -184,8 +181,6 @@ $(document).on('click', '#claimTokenButton', function(){
             waitForReceipt(hash, function (receipt) {
                 // Success!
 				op = true;
-                $('#claimTokenButton').hide();
-                setTimeout(loadCardData, 2000); //Bigger than waitForReceipt
                 $('#Loading .info').text('Transaction confirmed!');
                 $('#Loading').fadeOut(2000);
             });
@@ -275,6 +270,7 @@ function checkProgress(){
 	if(op = true){
 		// All the steps are completed!
 		clearInterval(progress);
+		$('#claimTokenButton, #gainAccess, #confirmYoutubeSubscription').hide();
 		
 		$('#ClaimERC721 h3').text('Your token is delivered!');
 		$('#accessNotification').text("This is your very own \
@@ -288,7 +284,7 @@ function checkProgress(){
 		if(wp = true){
 			// Web3 progress
 			$('#gainAccess').hide();
-			
+			$('#confirmYoutubeSubscription').hide();
 			$('#ClaimERC721 h3').text('Almost there...');
 			$('#accessNotification').html('<span style="color: green;\
 			font-weight: bold">Epic style!</span><br><br> \You have \
@@ -298,18 +294,18 @@ function checkProgress(){
 			load and the amount of Gas you\'re willing to spend, this may \
 			take a moment.');
 
-			$('#claimTokenButton').show();
+			$('#claimTokenButton').toggle();
 		} else {
 			if(yp = true){
-				// Youtube progress
-				$('#confirmYoutubeSubscription').hide();
+				// Youtube confirmed!
+				$('#confirmYoutubeSubscription').toggle();
 				$('#accessNotification').html('<span style="color: orange; \
 				font-weight: bold">Great!</span><br><br> Your subscription is \
 				valid.<br><br> \Now all that\'s left to do is connect your \
 				Web3 provider (MetaMask or other) and find out which card \
 				you\'ll get!');
 				
-				$('#gainAccess').show();
+				$('#gainAccess').toggle();
 			} else {
 				// No Youtube confirmation...
 				$('#accessNotification').html('Before you can claim your meme \
@@ -320,7 +316,7 @@ function checkProgress(){
 				Otherwise click the button below and we\'ll do a quick read-only \
 				check on your Youtube account to confirm your subscription.');
 				
-				$('#confirmYoutubeSubscription').show();
+				$('#confirmYoutubeSubscription').toggle();
 			}
 		}
 	}
