@@ -201,7 +201,8 @@ $(document).on('click', '#claimTokenButton', function(){
 
 // Close button
 $(document).on('click', '#closeButton', function(){
-    $('#Web3Notification, #Web3Notification img').fadeToggle(100);
+	$('body').toggleClass('noscroll');
+	$('#Web3Notification, #Web3Notification img').fadeToggle(100);
 });
 
 
@@ -237,6 +238,7 @@ async function loadCardData(){
 
 // Notify the user
 function notify(arg){
+	$('body').toggleClass('noscroll');
     switch (arg) {
         
         // Waiting
