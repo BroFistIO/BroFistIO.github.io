@@ -256,13 +256,20 @@ gtag('config', 'UA-3064259-44');
   font-size: 1.5em;
 }
 </style>
+	
+	
+	
+	
 <!-- The DApp -->
 <script>
 let contract;
 var userAccounts;
-var hasAccess;
 var hasClaimed;
-var youtubeSubscription;
+var youtubeSubscription = false;
+var userAccess;
+
+// Check for subscription every 1s
+var interval = setInterval(checkSubscription, 1000);
 
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
@@ -272,33 +279,31 @@ window.addEventListener('load', async () => {
             // Request account access if needed
             await ethereum.enable();
             // Acccounts now exposed
-		hasAccess = "confirmed";
+            initialize();
         } catch (error) {
             // User denied account access...
-		hasAccess = "denied";
-		$('#Web3Notification').fadeIn(200);
-            $('#Web3Info h1').text('Web3 access denied!');
-            $('#Web3Info p').text('In order to interact with this DApp you need \
-            to allow Web3 access. Consider refreshing the page and allowing access.');
-            $('#Web3Info img').attr('src','../images/info.png');
+            userAccess = false;
+            $('#Web3Notification, #Web3Notification img').fadeToggle(100);
+            notify(2);
         }
     }
     // Legacy dapp browsers...
     else if (window.web3) {
         window.web3 = new Web3(web3.currentProvider);
         // Acccounts always exposed
-        hasAccess = "confirmed";
+        userAccess = true;
     }
     // Non-dapp browsers...
     else {
-	    hasAccess = "noweb3";
+        // userAccess is undefined
     }
 });
 
 // Initialize contract instance, load user data
 async function initialize() {
-    $('#Web3Notification').fadeOut(200);
-	$('#Loading').show();
+    userAccess = true;
+    $('#Web3Notification, #gainAccess').hide();
+    $('#Loading').show();
     $('#Loading .info').text('Loading DApp');
     try {
     //let address = "0xCA011eD921eE5a91FdFB86F41d2e317bf5a5B5fC"; old
@@ -377,27 +382,11 @@ async function initialize() {
     userAccounts = await web3.eth.getAccounts();
     hasClaimed = await contract.methods.hasClaimed(userAccounts[0]).call();
     
-        // Load the card data if already claimed 
         if(hasClaimed){
+            // Load the card 
             loadCardData();
         } else {
-            // Show subscribe button instead
-            $('#subscribeToPewDiePie').fadeIn(200);
-            
-            function checkSubscription(){
-                if(!youtubeSubscription){
-                    // Not subscribed to PewDiePie
-                } else {
-                    // Subscribed to PewDiePie!
-                    clearInterval(interval);
-                    $('#subscribeToPewDiePie').hide();
-                    $('#claimTokenButton').fadeIn(200);
-                }
-            }
-            
-            // Check for subscription every 1s
-            var interval = setInterval(checkSubscription, 1000);
-            
+            // idk yet
         }
     
     } catch (error) {
@@ -406,42 +395,37 @@ async function initialize() {
         $('#Loading').fadeOut(200);
     }
 }
-	
 
-// Get access to DApp
+// Button to confirm userAccess 
 $('#gainAccess').click(function(){
-if(hasAccess == "noweb3"){
-$('#Web3Notification').fadeIn(200);
-$('#Web3Info h1').text('Non-dapp browser detected!');
-$('#Web3Info p').text('It looks like your browser does not currently \
-support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
-in your browser today.');
-$('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
-rel="nofollow"><img src="../images/metamask.png" alt="MetaMask logo"/></a>');
-}
-else if(hasAccess == "undefined"){
-$('#Web3Info h1').text('Waiting for connection...');
-$('#Web3Info p').text('In order to interact with this DApp you need \
-to first approve the Web3 connection request. If you are having trouble\
-then <a id="reloadPage">refreshing</a> the page might help.');
-$('#Web3Info').append('<img src="metafox.png" alt="Info"/>');
-}
-else if(hasAccess == "confirmed"){
-initialize();
-}
+    $('#Web3Notification, #Web3Notification img').fadeToggle(100);
+    if(typeof userAccess === "undefined"){
+        console.log("undefined");
+        if(window.ethereum){
+            console.log("web3");
+            notify(0);
+        } else {
+            console.log("not web3");
+            notify(1);
+        }
+    }
+    if(userAccess = false){
+        notify(2);
+        console.log("user access false");
+    }
 });
-	
-	
-// Refreshes the page 
-$('#reloadPage').click(function(){
-  location.reload();
-});		
-	
+
+
+// Call handleAuthClick function when user clicks on "Authorize" button.
+$('#confirmYoutubeSubscription').click(function() {
+    handleAuthClick(event);
+}); 
+
 
 // Clicks on claim token button 
 $('#claimTokenButton').click(function() {
     // Tell user to confirm 
-    $('#Loading').fadeIn(200);
+    $('#Loading').fadeTo(200);
     $('#Loading .info').text('Please confirm this transaction...');
     function waitForReceipt(hash, cb) {
       web3.eth.getTransactionReceipt(hash, function (err, receipt) {
@@ -481,6 +465,12 @@ $('#claimTokenButton').click(function() {
 });
 
 
+// Close button
+$('#closeButton').click(function(){
+    $('#Web3Notification, #Web3Notification img').fadeToggle(100);
+});
+
+
 // Clickable card 
 $('.cardWrapper').click(function(){
     flip();
@@ -499,6 +489,8 @@ function flip(){
 
 // Load card data & flip 
 async function loadCardData(){
+    // Button no longer needed
+    $('#gainAccess').hide();
     try{
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
@@ -514,7 +506,87 @@ async function loadCardData(){
         flip();
     }
 }
+
+// Notify the user
+function notify(arg){
+    switch (arg) {
+        
+        // Waiting
+        case 0:
+        $('#Web3Info h1').text('Not yet connected');
+        $('#Web3Info p').text('You seem to be using a Web3 ready browser\
+        but you have not yet confirmed the connection request. If you did not\
+        see a confirmation popup initially then refreshing the page might\
+        help.');
+        $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
+        rel="nofollow"><img src="metafox.png" alt="MetaMask logo"/></a>');
+        break;
+        
+        // No web3
+        case 1:
+        $('#Web3Info h1').text('Non-dapp browser detected!');
+        $('#Web3Info p').text('It looks like your browser does not currently \
+        support Web3. We recommend getting MetaMask to unlock the web of tomorrow \
+        in your browser today.');
+        $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
+        rel="nofollow"><img src="metamask.png" alt="MetaMask logo"/></a>');
+        break;
+        
+        // Denied
+        case 2:
+        $('#Web3Info h1').text('Web3 access denied!');
+        $('#Web3Info p').text('In order to interact with this DApp you need \
+        to allow Web3 access. Consider refreshing the page and allowing access.');
+        $('#Web3Info').append('<a href="https://metamask.io" target="_blank" \
+        rel="nofollow"><img src="metafox.png" alt="MetaMask logo"/></a>');
+        break;
+        
+    }
+ 
+}
+
+
+function checkSubscription(){
+    if(!youtubeSubscription){
+        // Not subscribed to PewDiePie...
+        console.log("Not subscribed");
+    } else {
+        // Subscribed to PewDiePie!
+        clearInterval(interval);
+        $('#confirmYoutubeSubscription').hide();
+        
+        // Start new...
+        var accessInterval = setInterval(checkUserAccess, 1000);
+    }
+}
+
+
+function checkUserAccess(){
+    if(!userAccess){
+        $('#accessNotification').text("Great! Your subscription is valid.\
+        Now all that's left to do is connect your Web3 provider and you\
+        will be able to claim your crypto collectible ;)");
+        
+        $('#gainAccess').show();
+        
+        console.log("subscribed!, not yet connected");
+    } else {
+        clearInterval(accessInterval);
+        $('#gainAccess').hide();
+        
+        $('#accessNotification').text("Epic style! You have confirmed your subscription to\
+        PewDiePie and we have established a solid Web3 connection. You're free to claim\
+        your very own, super rare, Meme Awards 2018 limited edition shiny and fabulous\
+        ERC721 cryptocurrency token.");
+        
+        $('#claimTokenButton').show();
+    }
+}
 </script>
+	
+	
+	
+	
 </head>
 <body>
 <div id="wrapper">
@@ -680,6 +752,8 @@ subscribed to PewDiePie. If you're not yet a subscriber, you can subscribe to hi
 Otherwise click the button below and we'll do a quick readonly check to confirm your subscription.</p>
 
 <button id="confirmYoutubeSubscription" class="button special icon fa-youtube-play">Confirm subscription</button>
+<button id="gainAccess" class="button special">Connect Web3</button>
+<button id="claimTokenButton" class="button special icon fa-gift">Claim Meme Token!</button>
 
 </div>
 
