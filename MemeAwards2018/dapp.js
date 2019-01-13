@@ -271,6 +271,11 @@ function checkProgress(){
 		clearInterval(progress);
 		$('#claimTokenButton, #gainAccess, #confirmYoutubeSubscription').hide();
 		
+		if(!$('#ClaimERC721 h3').text() == 'Your token is delivered!'){
+			conole.log("not");
+		} else {
+			console.log("value");
+		}
 		$('#ClaimERC721 h3').text('Your token is delivered!');
 		$('#accessNotification').text("This is your very own \
 		limited edition, super rare, extra shiny, unique and \
