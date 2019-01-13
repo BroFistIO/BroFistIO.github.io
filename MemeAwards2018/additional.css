@@ -1,5 +1,5 @@
 /* Initially hidden */
-#gainAccess, #claimTokenButton, #Web3Notification, #Loading {
+#gainAccess, #claimTokenButton, #Web3Notification, #Loading, .cardWrapper {
 display: none;
 }
 button::-moz-focus-inner,
