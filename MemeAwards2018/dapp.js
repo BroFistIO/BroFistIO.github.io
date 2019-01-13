@@ -302,23 +302,28 @@ Otherwise click the button below and we\'ll do a quick read-only check on your Y
     if($('#gainAccess').css('display') == 'none'){
       // Show hidden
       $('#gainAccess').fadeIn(100);
-      $('#accessNotification').html("Great! Your subscription is valid.<br><br>\
-Now all that's left to do is connect your Web3 provider and you\
-will be able to claim your crypto collectible ;)");
+      $('#accessNotification').html("<span style="color: orange; font-weight: bold">Great!</span><br><br> Your subscription is valid. \
+Now all that's left to do is connect your Web3 provider (MetaMask or other) and find out which card you'll get!");
     }
   } else {
     // User has access
     if(!$('#gainAccess').css('display') == 'none'){
       // Hide visible
       $('#gainAccess').hide();
-      $('#accessNotification').text("Epic style! You have confirmed your subscription to\
-PewDiePie and we have established a solid Web3 connection. You're free to claim\
-your very own, super rare, Meme Awards 2018 limited edition shiny and fabulous\
-ERC721 cryptocurrency token.");
-    }
+      $('#accessNotification').text("<span style="color: green; font-weight: bold">Epic style!</span><br><br> \
+You have confirmed your loyalty to PewDiePie and we have established a solid Web3 connection. You can now claim your token \
+by clicking the button below. <br><br>Depending on network load and the amount of Gas you're willing to spend, this may \
+take a moment.");
     // Show claim button
     $('#claimTokenButton').show();
     clearInterval(interval);
+    } else {
+	    // gainAccess hidden 
+	    $('#ClaimERC721 h3').text('Your token is delivered!');
+      $('#accessNotification').text("This is your very own limited edition, super rare, extra shiny, unique and dare I say, priceless relic \
+from the great Meme Awards 2018.");
+    }
+
   }
 }
 
