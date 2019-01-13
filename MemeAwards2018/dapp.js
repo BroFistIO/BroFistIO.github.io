@@ -244,7 +244,7 @@ async function loadCardData(){
             $("#cardImage").attr("src",data.image);
 			ownedTokensTemplateId = data.template;
 			yourToken = data.name;
-			ownedTokensAmount = await contract.methods.getIndividualCount(ownedTokensTemplateId).call();
+			ownedTokensAmount = contract.methods.getIndividualCount(ownedTokensTemplateId).call();
         })
         $('.cardWrapper').fadeIn(200);
     } catch (error) {
