@@ -269,8 +269,15 @@ function checkProgress(){
 	if(op === true && typeof op !== 'undefined'){
 		// All the steps are completed!
 		clearInterval(progress);
-		$('#claimTokenButton, #gainAccess, #confirmYoutubeSubscription').hide();
-		
+		if(!$('#claimTokenButton').is(":hidden")){
+			$('#claimTokenButton').hide();
+		}
+		if(!$('#gainAccess').is(":hidden")){
+			$('#gainAccess').hide();
+		}
+		if(!$('#confirmYoutubeSubscription').is(":hidden")){
+			$('#confirmYoutubeSubscription').hide();
+		}
 		if($('#ClaimERC721 h3').text() !== 'Your token is delivered!'){
 			$('#ClaimERC721 h3').text('Your token is delivered!');
 			$('#accessNotification').text("This is your very own \
@@ -280,6 +287,7 @@ function checkProgress(){
 		}
 
 	} else {
+		
 		if(wp === true && typeof wp !== 'undefined'){
 			// Web3 progress
 			if(!$('#gainAccess').is(":hidden")){
@@ -293,14 +301,16 @@ function checkProgress(){
 				$('#accessNotification').html('You can now claim your token \
 				by clicking the button below. <br><br>Depending on network \
 				load and the amount of Gas you\'re willing to spend, this may \
-				take a moment.');
+				take a moment or two.');
 				$('#ClaimERC721 h3').append('<span class="icon fa-check-circle-o"></span> \
 				Web3 connection established.<br>');
 			}
 			if($('#claimTokenButton').is(":hidden")){
 				$('#claimTokenButton').show();
 			}
+			
 		} else {
+			
 			if(yp === true && typeof yp !== 'undefined'){
 				// Youtube confirmed!
 				if(!$('#confirmYoutubeSubscription').is(":hidden")){
@@ -317,7 +327,9 @@ function checkProgress(){
 				if($('#gainAccess').is(":hidden")){
 					$('#gainAccess').show();
 				}
+				
 			} else {
+				
 				// No Youtube confirmation...
 				if($('#ClaimERC721 h3').text() !== 'Claim Meme Awards 2018 crypto collectible!'){
 					$('#ClaimERC721 h3').text('Claim Meme Awards 2018 crypto collectible!');
@@ -332,7 +344,9 @@ function checkProgress(){
 				if($('#confirmYoutubeSubscription').is(":hidden")){
 					$('#confirmYoutubeSubscription').show();
 				}
+				
 			}
 		}
 	}
+
 }
