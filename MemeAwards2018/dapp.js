@@ -3,12 +3,9 @@ var userAccounts;
 var hasClaimed;
 
 var web3Connected;
-var yp; // Youtube progress
-var wp; // Web3 progress
-var op; // Overall progress
-Boolean(yp);
-Boolean(wp);
-Boolean(op);
+var yp = false; // Youtube progress
+var wp = false; // Web3 progress
+var op = false; // Overall progress
 var progress = setInterval(checkProgress, 100);
 
 window.addEventListener('load', async () => {
