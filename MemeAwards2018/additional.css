@@ -1,5 +1,10 @@
 /* Initially hidden */
-#gainAccess, #claimTokenButton, #Web3Notification, #Loading, .cardWrapper {
+#confirmYoutubeSubscription,
+#gainAccess,
+#claimTokenButton,
+#Web3Notification,
+#Loading,
+.cardWrapper {
 display: none;
 }
 button::-moz-focus-inner,
