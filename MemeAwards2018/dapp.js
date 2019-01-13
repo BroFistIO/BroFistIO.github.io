@@ -316,7 +316,7 @@ function checkProgress(){
 		}
 		if(op_not_set){
 			$('#ClaimERC721 h3').text('Your token is delivered!');
-			$('#accessNotification').text("This is your very own \
+			$('#accessNotification').text("<br>This is your very own \
 			limited edition, super rare, extra shiny, unique and \
 			dare I say, priceless relic from the great Meme Awards \
 			of 2018.");
