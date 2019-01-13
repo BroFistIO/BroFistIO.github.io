@@ -280,8 +280,12 @@ function checkProgress(){
 	} else {
 		if(wp === true && typeof wp !== 'undefined'){
 			// Web3 progress
-			$('#gainAccess').hide();
-			$('#confirmYoutubeSubscription').hide();
+			if(!$('#gainAccess').is(":hidden")){
+				$('#gainAccess').hide();
+			}
+			if(!$('#confirmYoutubeSubscription').is(":hidden")){
+				$('#confirmYoutubeSubscription').hide();
+			}
 			$('#ClaimERC721 h3').text('Almost there...');
 			$('#accessNotification').html('<span style="color: green;\
 			font-weight: bold">Epic style!</span><br><br> \You have \
@@ -291,18 +295,24 @@ function checkProgress(){
 			load and the amount of Gas you\'re willing to spend, this may \
 			take a moment.');
 
-			$('#claimTokenButton').toggle();
+			if($('#claimTokenButton').is(":hidden")){
+				$('#claimTokenButton').show();
+			}
 		} else {
 			if(yp === true && typeof yp !== 'undefined'){
 				// Youtube confirmed!
-				$('#confirmYoutubeSubscription').toggle();
+				if(!$('#confirmYoutubeSubscription').is(":hidden")){
+					$('#confirmYoutubeSubscription').hide();
+				}
 				$('#accessNotification').html('<span style="color: orange; \
 				font-weight: bold">Great!</span><br><br> Your subscription is \
 				valid.<br><br> \Now all that\'s left to do is connect your \
 				Web3 provider (MetaMask or other) and find out which card \
 				you\'ll get!');
 				
-				$('#gainAccess').toggle();
+				if($('#gainAccess').is(":hidden")){
+					$('#gainAccess').show();
+				}
 			} else {
 				// No Youtube confirmation...
 				$('#accessNotification').html('Before you can claim your meme \
@@ -313,7 +323,9 @@ function checkProgress(){
 				Otherwise click the button below and we\'ll do a quick read-only \
 				check on your Youtube account to confirm your subscription.');
 				
-				$('#confirmYoutubeSubscription').toggle();
+				if($('#confirmYoutubeSubscription').is(":hidden")){
+					$('#confirmYoutubeSubscription').show();
+				}
 			}
 		}
 	}
