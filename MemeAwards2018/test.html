@@ -459,6 +459,7 @@ $(document).on('click', '#claimTokenButton', function(){
     contract.methods.claimMeme().send({from: userAccounts[0]},
     function(error,hash){
         if(!error){
+		$('#Loading').fadeIn(200);
             $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
             waitForReceipt(hash, function (receipt) {
                 // Success! Transaction confirmed 
@@ -468,6 +469,7 @@ $(document).on('click', '#claimTokenButton', function(){
                 $('#Loading').fadeOut(2000);
             });
         } else {
+		$('#Loading').fadeIn(200);
             $('#Loading .info').text('Error. Transaction rejected?');
             $('#Loading').fadeOut(2000);
             console.log(error);
@@ -795,7 +797,7 @@ Otherwise click the button below and we'll do a quick readonly check to confirm 
 
 <!-- The notifications -->
 <div id="Web3Notification">
-    <div id="closeButton"></div>
+    <div id="closeButton"><span class="icon fa-close"></span></div>
     <div id="Web3Info">
     <h1></h1>
     <p></p>
