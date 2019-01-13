@@ -121,6 +121,7 @@ async function initialize() {
         if(hasClaimed){
             // Overall progress 
             op = true;
+			loadCardData();
         } else {
             // idk yet
         }
@@ -277,9 +278,7 @@ function checkProgress(){
 		limited edition, super rare, extra shiny, unique and \
 		dare I say, priceless relic from the great Meme Awards \
 		of 2018.");
-		
-		loadCardData();
-		
+
 	} else {
 		if(wp = true){
 			// Web3 progress
