@@ -1,11 +1,10 @@
-let contract;
+var contract;
 var userAccounts;
 var hasClaimed;
-var youtubeSubscription = false;
-var userAccess;
 
-// Check for subscription every 1s
-var interval = setInterval(checkProgress, 100);
+var youtubeSubscription;
+var web3Connected;
+var progress = setInterval(checkProgress, 100);
 
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
@@ -18,8 +17,7 @@ window.addEventListener('load', async () => {
             initialize();
         } catch (error) {
             // User denied account access...
-            userAccess = false;
-	    $('body').toggleClass('noscroll');
+            web3Connected = false;
             $('#Web3Notification, #Web3Notification img').fadeToggle(100);
             notify(2);
         }
@@ -32,15 +30,16 @@ window.addEventListener('load', async () => {
     }
     // Non-dapp browsers...
     else {
-        // userAccess is undefined
+        // web3Connected is undefined
     }
 });
 
 // Initialize contract instance, load user data
 async function initialize() {
-    userAccess = true;
-    $('body').toggleClass('noscroll');
-    $('#Web3Notification').hide();
+    web3Connected = true;
+	if(('#Web3Notification').css('display') == 'none')){
+		$('#Web3Notification').hide();
+	}
     $('#Loading').show();
     $('#Loading .info').text('Loading DApp');
     try {
@@ -130,38 +129,32 @@ async function initialize() {
     } catch (error) {
         console.error(error);
     } finally {
-	$('body').toggleClass('noscroll');
         $('#Loading').fadeOut(200);
     }
 }
 
-// Button to confirm userAccess 
+// Button to confirm web3Connected 
 $(document).on('click', '#gainAccess', function(){
-    $('body').toggleClass('noscroll');
     $('#Web3Notification, #Web3Notification img').fadeToggle(100);
-    if(typeof userAccess === "undefined"){
+    if(typeof web3Connected === "undefined"){
         if(window.ethereum){
             notify(0);
         } else {
             notify(1);
         }
     }
-    if(userAccess = false){
+    if(web3Connected = false){
         notify(2);
     }
 });
 
-
-// Call handleAuthClick function when user clicks on "Authorize" button.
+// Call Google's handleAuthClick
 $(document).on('click', '#confirmYoutubeSubscription', function(event){
 	handleAuthClick(event);
 }); 
 
-
 // Clicks on claim token button 
 $(document).on('click', '#claimTokenButton', function(){
-    $('body').toggleClass('noscroll');
-    // Tell user to confirm 
     $('#Loading').fadeTo(200, 1);
     $('#Loading .info').text('Please confirm this transaction...');
     function waitForReceipt(hash, cb) {
@@ -185,33 +178,25 @@ $(document).on('click', '#claimTokenButton', function(){
     contract.methods.claimMeme().send({from: userAccounts[0]},
     function(error,hash){
         if(!error){
-	$('#Loading').fadeTo(200, 1);
             $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
             waitForReceipt(hash, function (receipt) {
-                // Success! Transaction confirmed 
+                // Success!
                 $('#claimTokenButton').hide();
                 setTimeout(loadCardData, 2000); //Bigger than waitForReceipt
-		$('body').toggleClass('noscroll');
                 $('#Loading .info').text('Transaction confirmed!');
                 $('#Loading').fadeOut(2000);
             });
         } else {
-		$('body').toggleClass('noscroll');
-		$('#Loading').fadeTo(200, 1);
             $('#Loading .info').text('Error. Transaction rejected?');
             $('#Loading').fadeOut(2000);
-            console.log(error);
         }
     })
 });
 
-
 // Close button
 $(document).on('click', '#closeButton', function(){
-	$('body').toggleClass('noscroll');
 	$('#Web3Notification, #Web3Notification img').fadeToggle(100);
 });
-
 
 // Flip the card
 function flip(){
@@ -222,11 +207,10 @@ function flip(){
 	}, 250);
 }
 
-
 // Load card data & flip 
 async function loadCardData(){
-    // Button no longer needed
-    $('#gainAccess, #claimTokenButton').hide();
+    // Buttons no longer needed
+    $('#confirmYoutubeSubscription, #gainAccess, #claimTokenButton').hide();
     try{
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
@@ -281,50 +265,49 @@ function notify(arg){
  
 }
 
-
 function checkProgress(){
 
-  if(!youtubeSubscription){
-    if(!$('#confirmYoutubeSubscription').css('display') == 'none'){
-       $('#accessNotification').html('Before you can claim your meme crypto collectible you need\
+if(!youtubeSubscription){
+if(!$('#confirmYoutubeSubscription').css('display') == 'none'){
+$('#accessNotification').html('Before you can claim your meme crypto collectible you need\
 to confirm that you are indeed subscribed to PewDiePie. If you\'re not yet a subscriber, you can\
 subscribe to his channel\
 <a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>.\
 Otherwise click the button below and we\'ll do a quick read-only check on your Youtube account to confirm your subscription.');
-  }
-  // Not subscribed
+}
+// Not subscribed
 
 } else {
-  // Subscribed
-  $('#confirmYoutubeSubscription').hide();
-  if(!userAccess){
-    // No access
-    if($('#gainAccess').css('display') == 'none'){
-      // Show hidden
-      $('#gainAccess').fadeIn(100);
-      $('#accessNotification').html('<span style="color: orange; font-weight: bold">Great!</span><br><br> Your subscription is valid. \
+// Subscribed
+$('#confirmYoutubeSubscription').hide();
+if(!web3Connected){
+// No access
+if($('#gainAccess').css('display') == 'none'){
+// Show hidden
+$('#gainAccess').fadeIn(100);
+$('#accessNotification').html('<span style="color: orange; font-weight: bold">Great!</span><br><br> Your subscription is valid. \
 Now all that\'s left to do is connect your Web3 provider (MetaMask or other) and find out which card you\'ll get!');
-    }
-  } else {
-    // User has access
-    if(!$('#gainAccess').css('display') == 'none'){
-      // Hide visible
-      $('#gainAccess').hide();
-      $('#accessNotification').html('<span style="color: green; font-weight: bold">Epic style!</span><br><br> \
+}
+} else {
+// User has access
+if(!$('#gainAccess').css('display') == 'none'){
+// Hide visible
+$('#gainAccess').hide();
+$('#accessNotification').html('<span style="color: green; font-weight: bold">Epic style!</span><br><br> \
 You have confirmed your loyalty to PewDiePie and we have established a solid Web3 connection. You can now claim your token \
 by clicking the button below. <br><br>Depending on network load and the amount of Gas you\'re willing to spend, this may \
 take a moment.');
-    // Show claim button
-    $('#claimTokenButton').show();
-    clearInterval(interval);
-    } else {
-	    // gainAccess hidden 
-	    $('#ClaimERC721 h3').text('Your token is delivered!');
-      $('#accessNotification').text("This is your very own limited edition, super rare, extra shiny, unique and dare I say, priceless relic \
+// Show claim button
+$('#claimTokenButton').show();
+clearInterval(progress);
+} else {
+// gainAccess hidden 
+$('#ClaimERC721 h3').text('Your token is delivered!');
+$('#accessNotification').text("This is your very own limited edition, super rare, extra shiny, unique and dare I say, priceless relic \
 from the great Meme Awards 2018.");
-    }
+}
 
-  }
+}
 }
 
 }
