@@ -278,7 +278,7 @@ function checkProgress(){
 		if(!$('#confirmYoutubeSubscription').is(":hidden")){
 			$('#confirmYoutubeSubscription').hide();
 		}
-		if($('#ClaimERC721 h3').text() !== 'Your token is delivered!'){
+		if($('#ClaimERC721 h3').text() !== '<br>Your token is delivered!'){
 			$('#ClaimERC721 h3').text('Your token is delivered!');
 			$('#accessNotification').text("This is your very own \
 			limited edition, super rare, extra shiny, unique and \
