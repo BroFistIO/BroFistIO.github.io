@@ -308,25 +308,29 @@ function checkProgress(){
 				if(!$('#confirmYoutubeSubscription').is(":hidden")){
 					$('#confirmYoutubeSubscription').hide();
 				}
-				$('#accessNotification').html('<span style="color: orange; \
-				font-weight: bold">Great!</span><br><br> Your subscription is \
-				valid.<br><br> \Now all that\'s left to do is connect your \
-				Web3 provider (MetaMask or other) and find out which card \
-				you\'ll get!');
-				
+				if(!$('#ClaimERC721 h3').text() == 'Almost there...'){
+					$('#ClaimERC721 h3').text('Almost there...');
+					$('#accessNotification').html('Great! Your subscription is \
+					valid.<br><br> \Now all that\'s left to do is connect your \
+					Web3 provider (MetaMask or other) and find out which card \
+					you\'ll get!');
+				}
 				if($('#gainAccess').is(":hidden")){
 					$('#gainAccess').show();
 				}
 			} else {
-				// No Youtube confirmation...
-				$('#accessNotification').html('Before you can claim your meme \
-				crypto collectible you need to confirm that you are indeed \
-				subscribed to PewDiePie. If you\'re not yet a subscriber, you can \
-				subscribe to his channel \
-				<a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>. \
-				Otherwise click the button below and we\'ll do a quick read-only \
-				check on your Youtube account to confirm your subscription.');
 				
+				// No Youtube confirmation...
+				if(!$('#ClaimERC721 h3').text() == 'Claim Meme Awards 2018 crypto collectible!'){
+					$('#ClaimERC721 h3').text('Claim Meme Awards 2018 crypto collectible!');
+					$('#accessNotification').html('Before you can claim your meme \
+					crypto collectible you need to confirm that you are indeed \
+					subscribed to PewDiePie. If you\'re not yet a subscriber, you can \
+					subscribe to his channel \
+					<a href="https://www.youtube.com/channel/UC-lHJZR3Gqxm24_Vd_AJ5Yw?sub_confirmation=1" target="_blank" rel="nofollow">right here</a>. \
+					Otherwise click the button below and we\'ll do a quick read-only \
+					check on your Youtube account to confirm your subscription.');
+				}
 				if($('#confirmYoutubeSubscription').is(":hidden")){
 					$('#confirmYoutubeSubscription').show();
 				}
