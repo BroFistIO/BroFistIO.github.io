@@ -5,8 +5,7 @@ var youtubeSubscription = false;
 var userAccess;
 
 // Check for subscription every 1s
-var interval = setInterval(checkSubscription, 1000);
-var accessInterval;
+var interval = setInterval(checkProgress, 1000);
 
 window.addEventListener('load', async () => {
     // Modern dapp browsers...
@@ -279,38 +278,41 @@ function notify(arg){
 }
 
 
-function checkSubscription(){
-    if(!youtubeSubscription){
-        // Not subscribed to PewDiePie...
-    } else {
-        // Subscribed to PewDiePie!
-        clearInterval(interval);
-        $('#confirmYoutubeSubscription').hide();
-        
-        // Start new...
-        accessInterval = setInterval(checkUserAccess, 1000);
-    }
+function checkProgress(){
+
+	if(!youtubeSubscription){
+	// Not subscribed
+	} else {
+	// Subscribed
+	$('#confirmYoutubeSubscription').hide();
+	if(!userAccess){
+	// No access
+	if($('#gainAccess').css('display') == 'none'){
+	// Show hidden
+	$('#gainAccess').fadeIn(100);
+	$('#accessNotification').text("Great! Your subscription is valid.\
+	Now all that's left to do is connect your Web3 provider and you\
+	will be able to claim your crypto collectible ;)").fadeIn(100);
+	}
+	} else {
+	// User has access
+	if(!$('#gainAccess').css('display') == 'none'){
+	// Hide visible
+	$('#gainAccess').hide();
+	$('#accessNotification').text("Epic style! You have confirmed your subscription to\
+	PewDiePie and we have established a solid Web3 connection. You're free to claim\
+	your very own, super rare, Meme Awards 2018 limited edition shiny and fabulous\
+	ERC721 cryptocurrency token.").fadeIn(100);
+	}
+	// Show claim button
+	$('#claimTokenButton').show();
+	clearInterval(interval);
+	}
+	}
+
 }
 
 
-function checkUserAccess(){
-    if(!userAccess){
-        $('#accessNotification').text("Great! Your subscription is valid.\
-        Now all that's left to do is connect your Web3 provider and you\
-        will be able to claim your crypto collectible ;)");
-        
-        $('#gainAccess').show();
-        
-        console.log("subscribed!, not yet connected");
-    } else {
-        clearInterval(accessInterval);
-        $('#gainAccess').hide();
-        
-        $('#accessNotification').text("Epic style! You have confirmed your subscription to\
-        PewDiePie and we have established a solid Web3 connection. You're free to claim\
-        your very own, super rare, Meme Awards 2018 limited edition shiny and fabulous\
-        ERC721 cryptocurrency token.");
-        
-        $('#claimTokenButton').show();
-    }
+
+
 }
