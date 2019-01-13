@@ -38,7 +38,7 @@ window.addEventListener('load', async () => {
 // Initialize contract instance, load user data
 async function initialize() {
     userAccess = true;
-    $('#Web3Notification).hide();
+    $('#Web3Notification').hide();
     $('#Loading').show();
     $('#Loading .info').text('Loading DApp');
     try {
