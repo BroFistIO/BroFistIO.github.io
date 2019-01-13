@@ -1,6 +1,9 @@
 var contract;
 var userAccounts;
 var hasClaimed;
+var totalSupply;
+var yourToken;
+var ownedTokensTemplateId;
 
 var web3Connected;
 var yp; // Youtube progress
@@ -113,10 +116,33 @@ async function initialize() {
         "payable":false,
         "stateMutability":"view",
         "type":"function"
-    }];
+    },
+	
+	{
+		"constant":true,
+		"inputs":[],
+		"name":"totalSupply",
+		"outputs":[{"name":"","type":"uint256"}],
+		"payable":false,
+		"stateMutability":"view",
+		"type":"function"
+	},
+	
+	{
+		"constant":true,
+		"inputs":[{"name":"_templateId","type":"uint32"}],
+		"name":"getIndividualCount",
+		"outputs":[{"name":"","type":"uint256"}],
+		"payable":false,
+		"stateMutability":"view",
+		"type":"function"
+	}
+	
+	];
     contract = new web3.eth.Contract(ABI, address);
     userAccounts = await web3.eth.getAccounts();
     hasClaimed = await contract.methods.hasClaimed(userAccounts[0]).call();
+	totalSupply = await contract.methods.totalSupply().call();
     
         if(hasClaimed && typeof hasClaimed !== 'undefined'){
             // Overall progress 
@@ -128,6 +154,7 @@ async function initialize() {
         console.error(error);
     } finally {
         $('#Loading').fadeOut(200);
+		$('#tokenStats').html('There are currently '+totalSupply+' tokens in existence.');
     }
 }
 
@@ -211,6 +238,7 @@ async function loadCardData(){
     try{
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
+		ownedTokensTemplateId = ownedTokens[0].templateId;
         $.getJSON(ownedTokensUri, function(data) {
             $("#cardTitle").text(data.name);
             $("#cardDescription").text(data.description);
@@ -263,6 +291,10 @@ function notify(arg){
 }
 
 
+// Cringe...
+var op_not_set = true;
+var wp_not_set = true;
+var yp_not_set = true;
 
 function checkProgress(){
 	
@@ -278,12 +310,14 @@ function checkProgress(){
 		if(!$('#confirmYoutubeSubscription').is(":hidden")){
 			$('#confirmYoutubeSubscription').hide();
 		}
-		if($('#ClaimERC721 h3').text() !== '<br>Your token is delivered!'){
+		if(op_not_set){
 			$('#ClaimERC721 h3').text('Your token is delivered!');
 			$('#accessNotification').text("This is your very own \
 			limited edition, super rare, extra shiny, unique and \
 			dare I say, priceless relic from the great Meme Awards \
 			of 2018.");
+			
+			op_not_set = false;
 		}
 
 	} else {
@@ -296,7 +330,7 @@ function checkProgress(){
 			if(!$('#confirmYoutubeSubscription').is(":hidden")){
 				$('#confirmYoutubeSubscription').hide();
 			}
-			if($('#ClaimERC721 h3').text() !== 'Ready to claim!'){
+			if(wp_not_set){
 				$('#ClaimERC721 h3').text('Ready to claim!');
 				$('#accessNotification').html('<br>You can now claim your token \
 				by clicking the button below. <br><br>Depending on network \
@@ -304,6 +338,8 @@ function checkProgress(){
 				take a moment or two.');
 				$('#ClaimERC721 h3').after('<span class="icon fa-check-circle-o"></span> \
 				Web3 connection established.<br>');
+				
+				wp_not_set = false;
 			}
 			if($('#claimTokenButton').is(":hidden")){
 				$('#claimTokenButton').show();
@@ -316,13 +352,15 @@ function checkProgress(){
 				if(!$('#confirmYoutubeSubscription').is(":hidden")){
 					$('#confirmYoutubeSubscription').hide();
 				}
-				if($('#ClaimERC721 h3').text() !== 'Almost there...'){
+				if(yp_not_set){
 					$('#ClaimERC721 h3').text('Almost there...');
 					$('#accessNotification').html('<br>Now all that\'s left to do is connect your \
 					Web3 provider (MetaMask or other) and find out which card \
 					you\'ll get!');
 					$('#ClaimERC721 h3').after('<span class="icon fa-check-circle-o"></span> \
 					Great! Your subscription is valid.<br>');
+					
+					yp_not_set = false;
 				}
 				if($('#gainAccess').is(":hidden")){
 					$('#gainAccess').show();
