@@ -19,6 +19,7 @@ window.addEventListener('load', async () => {
         } catch (error) {
             // User denied account access...
             userAccess = false;
+	    $('body').toggleClass('noscroll');
             $('#Web3Notification, #Web3Notification img').fadeToggle(100);
             notify(2);
         }
@@ -38,6 +39,7 @@ window.addEventListener('load', async () => {
 // Initialize contract instance, load user data
 async function initialize() {
     userAccess = true;
+    $('body').toggleClass('noscroll');
     $('#Web3Notification').hide();
     $('#Loading').show();
     $('#Loading .info').text('Loading DApp');
@@ -128,12 +130,14 @@ async function initialize() {
     } catch (error) {
         console.error(error);
     } finally {
+	$('body').toggleClass('noscroll');
         $('#Loading').fadeOut(200);
     }
 }
 
 // Button to confirm userAccess 
 $(document).on('click', '#gainAccess', function(){
+    $('body').toggleClass('noscroll');
     $('#Web3Notification, #Web3Notification img').fadeToggle(100);
     if(typeof userAccess === "undefined"){
         if(window.ethereum){
@@ -156,6 +160,7 @@ $(document).on('click', '#confirmYoutubeSubscription', function(event){
 
 // Clicks on claim token button 
 $(document).on('click', '#claimTokenButton', function(){
+    $('body').toggleClass('noscroll');
     // Tell user to confirm 
     $('#Loading').fadeTo(200, 1);
     $('#Loading .info').text('Please confirm this transaction...');
@@ -186,10 +191,12 @@ $(document).on('click', '#claimTokenButton', function(){
                 // Success! Transaction confirmed 
                 $('#claimTokenButton').hide();
                 setTimeout(loadCardData, 2000); //Bigger than waitForReceipt
+		$('body').toggleClass('noscroll');
                 $('#Loading .info').text('Transaction confirmed!');
                 $('#Loading').fadeOut(2000);
             });
         } else {
+		$('body').toggleClass('noscroll');
 		$('#Loading').fadeTo(200, 1);
             $('#Loading .info').text('Error. Transaction rejected?');
             $('#Loading').fadeOut(2000);
@@ -238,7 +245,6 @@ async function loadCardData(){
 
 // Notify the user
 function notify(arg){
-	$('body').toggleClass('noscroll');
     switch (arg) {
         
         // Waiting
