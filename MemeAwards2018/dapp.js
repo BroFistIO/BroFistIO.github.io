@@ -2,8 +2,6 @@ var contract;
 var userAccounts;
 var hasClaimed;
 var totalSupply;
-var yourToken;
-var ownedTokensTemplateId;
 
 var web3Connected;
 var yp; // Youtube progress
@@ -154,7 +152,7 @@ async function initialize() {
         console.error(error);
     } finally {
         $('#Loading').fadeOut(200);
-		$('#tokenStats').html('There are currently '+totalSupply+' tokens in existence.');
+		$('#tokenStats').html('There are currently <strong>'+totalSupply+'</strong> tokens in existence.');
     }
 }
 
@@ -243,7 +241,6 @@ async function loadCardData(){
             $("#cardTitle").text(data.name);
             $("#cardDescription").text(data.description);
             $("#cardImage").attr("src",data.image);
-			yourToken = data.name;
         })
         $('.cardWrapper').fadeIn(200);
     } catch (error) {
@@ -251,7 +248,8 @@ async function loadCardData(){
     } finally {
         flip();
 		if(typeof ownedTokensAmount !== 'undefined'){
-			$('#tokenStats').append(' The token '+yourToken+' has been minted '+ownedTokensAmount+' times.');
+			$('#tokenStats').append(' The token <strong>'+$("#cardTitle").text()+'</strong> \
+			has been minted <strong>'+ownedTokensAmount+'</strong> times.');
 		}
     }
 }
