@@ -43,8 +43,7 @@ async function initialize() {
     $('#Loading').show();
     $('#Loading .info').text('Loading DApp');
     try {
-    //let address = "0xCA011eD921eE5a91FdFB86F41d2e317bf5a5B5fC"; old
-    let address = "0x756fee561baa951264cd6912e431111a80185fcf"; //no claim check
+    let address = "0x667b7a99d6912ec21c242f4410d86626c8b9416d";
     let ABI = [
     {
         "constant":false,
