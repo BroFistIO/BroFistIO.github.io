@@ -247,7 +247,7 @@ async function loadCardData(){
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
 		
 		// Get the first token templateId in their individual list 
-		var templateId = await contract.methods.tokenOfOwnerByIndex(userAccounts[0], 0).call();
+		var templateId = await contract.methods.tokenOfOwnerByIndex(userAccounts[0].toString(), 0).call();
 		
 		// individual count
 		var individualCount = await contract.methods.getIndividualCount(templateId).call();
