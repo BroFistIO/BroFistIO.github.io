@@ -134,6 +134,16 @@ async function initialize() {
 		"payable":false,
 		"stateMutability":"view",
 		"type":"function"
+	},
+	
+	{
+		"constant":true,
+		"inputs":[{"name":"owner","type":"address"},{"name":"index","type":"uint256"}],
+		"name":"tokenOfOwnerByIndex",
+		"outputs":[{"name":"tokenId","type":"uint256"}],
+		"payable":false,
+		"stateMutability":"view",
+		"type":"function"
 	}
 	
 	];
@@ -235,7 +245,13 @@ async function loadCardData(){
     $('#confirmYoutubeSubscription, #gainAccess, #claimTokenButton').hide();
     try{
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
-		var ownedTokensAmount = await contract.methods.getIndividualCount(ownedTokens[0][0]).call();
+		
+		// Get the first token templateId in their individual list 
+		var templateId = await contract.methods.tokenOfOwnerByIndex(userAccounts[0], 0).call();
+		
+		// individual count
+		var individualCount = await contract.methods.getIndividualCount(templateId).call();
+		
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
         $.getJSON(ownedTokensUri, function(data) {
             $("#cardTitle").text(data.name);
@@ -247,9 +263,9 @@ async function loadCardData(){
         console.error(error);
     } finally {
         flip();
-		if(typeof ownedTokensAmount !== 'undefined'){
+		if(typeof individualCount !== 'undefined'){
 			$('#tokenStats').append(' Your token \
-			has been minted <strong>'+ownedTokensAmount+'</strong> times.');
+			has been minted <strong>'+individualCount+'</strong> times.');
 		}
     }
 }
