@@ -95,7 +95,7 @@ minute = second * 60,
 hour = minute * 60,
 day = hour * 24;
 
-let countDown = new Date('Feb 05, 2019 04:20:00').getTime(),
+let countDown = new Date('Feb 13, 2019 01:13:00').getTime(),
 x = setInterval(function() {
 
 let now = new Date().getTime(),
@@ -109,6 +109,9 @@ document.getElementById('seconds').innerText = Math.floor((distance % (minute)) 
 //do something later when date is reached
 if (distance < 0) {
 clearInterval(x);
+$('.countdown h3').text('The airdrop has ended!');
+$('.countdown p').text('Thanks everyone who participated :)');
+$('.timeBlock').hide();
 }
 
 }, second)
@@ -120,6 +123,7 @@ clearInterval(x);
 <div class="timeBlock"><span id="hours"></span>Hours</div>
 <div class="timeBlock"><span id="minutes"></span>Minutes</div>
 <div class="timeBlock"><span id="seconds"></span>Seconds</div>
+<br><br><p>When it's over, it's over for good. Hurry up!!</p>
 </div>
 
 </section>
@@ -273,7 +277,7 @@ card you get!
 <p>If you're having trouble claiming the token then you can also call the function <code>claimMeme()</code> externally 
 with no arguments. If the <code>msg.sender</code> has not claimed yet, the token will get <code>minted</code> to 
 the <code>msg.sender</code>. The smart contract behind all this can be found 
-<a href="https://ropsten.etherscan.io/address/0xad3489875209933f8814d857a0a1cd2d828d310c" target="_blank" rel="nofollow">here</a>.
+<a href="https://etherscan.io/address/0x667b7a99d6912ec21c242f4410d86626c8b9416d" target="_blank" rel="nofollow">here</a>.
 </p>
 
 </div>
@@ -285,7 +289,7 @@ the <code>msg.sender</code>. The smart contract behind all this can be found
 <footer id="footer">
 <section>
 <h5>If you're PewDiePie, please don't copystrike us.</h5>
-<a href="index.html" target="_blank">Wallet Generator</a><br>
+<a href="../wallet/" target="_blank">Wallet Generator</a><br>
 <a href="../about/" target="_blank">About BrofistCoin</a><br>
 <a href="../BrofistCoin_Whitepaper.pdf" target="_blank">Whitepaper</a><br>
 <a href="../faq/" target="_blank">FAQ</a><br>
