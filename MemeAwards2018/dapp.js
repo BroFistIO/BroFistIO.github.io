@@ -209,12 +209,13 @@ $(document).on('click', '#claimTokenButton', function(){
     contract.methods.claimMeme().send({from: userAccounts[0]},
     function(error,hash){
         if(!error){
-            $('#Loading .info').html('Waiting for <a href="https://ropsten.etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
+            $('#Loading .info').html('Waiting for <a href="https://etherscan.io/tx/'+hash+'" target="_blank">transaction</a> to confirm...');
             waitForReceipt(hash, function (receipt) {
                 // Success!
-				loadCardData();
+		
                 $('#Loading .info').text('Transaction confirmed!');
                 $('#Loading').fadeOut(2000);
+		loadCardData();
             });
         } else {
             $('#Loading .info').text('Error. Transaction rejected?');
