@@ -1,20 +1,20 @@
 # Meme Awards 2018 Crypto Collectibles 
 
-A DApp that connects your browser to the Ethereum blockchain through a Web3 bridge such as MetaMask
+My first ever "real" DApp that connects your browser to the Ethereum blockchain through a Web3 bridge such as MetaMask.
 
-## What this does?
+## What does it do?
 
-During first 30 days the smart contract will transfer anyone who requests it a randomly picked ERC721 crypto collectible. 
+During the first 30 days the smart contract will transfer anyone who requests it a randomly picked ERC721 crypto collectible. 
 
 Once claimed, the owner can see how many of that token is already in circulation as well as the total supply of all the tokens in existence.
 
 ## Requirements
 
-* A Web3 bridge such as [MetaMask](https://metamask.io/) installed.
+* A Web3 bridge such as [MetaMask](https://metamask.io/).
 
-Note: this feature is already built into the new Opera browser for Android devices
+Note: this feature is already built into the new Opera browser for Android devices!
 
-** Must have an active subscription to PewDiePie's channel!
+* Must have an active subscription to PewDiePie's channel!
 
 * A little bit of ETH for transaction fees if you're interested in the token airdrop. Just a few cents worth, really :)
 
