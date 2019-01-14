@@ -138,9 +138,9 @@ async function initialize() {
 	
 	{
 		"constant":true,
-		"inputs":[{"name":"owner","type":"address"},{"name":"index","type":"uint256"}],
-		"name":"tokenOfOwnerByIndex",
-		"outputs":[{"name":"tokenId","type":"uint256"}],
+		"inputs":[{"name":"_index","type":"uint256"}],
+		"name":"tokenByIndex",
+		"outputs":[{"name":"","type":"uint256"}],
 		"payable":false,
 		"stateMutability":"view",
 		"type":"function"
@@ -244,14 +244,16 @@ async function loadCardData(){
     // Buttons no longer needed
     $('#confirmYoutubeSubscription, #gainAccess, #claimTokenButton').hide();
     try{
+		// uint array of all the tokens owner owns from the clamedMemes array 
         let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
 		
-		// Get the first token templateId in their individual list 
-		var templateId = await contract.methods.tokenOfOwnerByIndex(userAccounts[0].toString(), 0).call();
+		// templateId of the first token in the owners owned tokens array 
+		var _tokenByIndex = await contract.methods.tokenByIndex(ownedTokens[0]).call();
 		
-		// individual count
-		var individualCount = await contract.methods.getIndividualCount(templateId).call();
+		// Count for that token (templateId)
+		var individualCount = await contract.methods.getIndividualCount(_tokenByIndex).call();
 		
+		// Use claimedMemes token id of the owner to get its URI
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
         $.getJSON(ownedTokensUri, function(data) {
             $("#cardTitle").text(data.name);
