@@ -340,7 +340,7 @@ function checkProgress(){
 			$('#accessNotification').html("<br>This is your very own \
 			limited edition, super rare, extra shiny, unique and \
 			dare I say, priceless relic from the great Meme Awards \
-			of 2018.");
+			of 2018. (Refresh the page if you do not see it!)");
 			
 			op_not_set = false;
 		}
