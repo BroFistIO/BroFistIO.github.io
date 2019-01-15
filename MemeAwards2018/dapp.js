@@ -245,7 +245,7 @@ async function loadCardData(){
     $('#confirmYoutubeSubscription, #gainAccess, #claimTokenButton').hide();
     try{
 		// uint array of all the tokens owner owns from the clamedMemes array 
-        let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
+        	let ownedTokens = await contract.methods.getMemesByOwner(userAccounts[0]).call();
 		
 		// templateId of the first token in the owners owned tokens array 
 		var _tokenByIndex = await contract.methods.tokenByIndex(ownedTokens[0]).call();
@@ -256,10 +256,15 @@ async function loadCardData(){
 		// Use claimedMemes token id of the owner to get its URI
         let ownedTokensUri = await contract.methods.tokenURI(ownedTokens[0]).call();
         $.getJSON(ownedTokensUri, function(data) {
+		// Adjust title alignment on the card template 
+		if(data.name.length <= 14){
+		$("#cardTitle").css('top','20%');
+		}
             $("#cardTitle").text(data.name);
             $("#cardDescription").text(data.description);
             $("#cardImage").attr("src",data.image);
         })
+
         $('.cardWrapper').fadeIn(200);
     } catch (error) {
         console.error(error);
